@@ -18,13 +18,34 @@ Text Domain: enigma
 	display: none;
 }
 
+/****************************************************
+************ Toutes les pages/tous formats **********
+****************************************************/
+@media all{
+	.header_section .container{
+		width: 100%;
+	}
+	/********** Page d'accueil *******************/
+	.logo p, .head-contact-info li{font-size: 14px;}
+	.social li.facebook, .social li.twitter, .social li.youtube{
+		background-image: linear-gradient(to bottom, transparent 50%, #ffffff 50%);
+	}
+	.social li.facebook:hover, .social li.twitter:hover, .social li.youtube:hover{
+		background-color: #ffffff;
+		background-image: linear-gradient(to bottom, transparent 50%, #31A3DD 50%);
+	}
+	.carousel-control.left, .carousel-control.right{
+		background-image: none !important;
+	}
+}
+
+
+
 
 /****************************************************
 ******************** Page d'accueil *****************
 ****************************************************/
 @media (max-width: 1920px){
 	/***************** Header ***************/
-	.social li.facebook:hover, .social li.twitter:hover, .social li.youtube:hover{
-		background-color: #fff;
-	}
+	
 }

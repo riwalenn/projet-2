@@ -12,38 +12,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <meta charset="<?php bloginfo('charset'); ?>" />	
 	<?php $wl_theme_options = weblizar_get_options(); ?>
-	<?php if($wl_theme_options['upload_image_favicon']!=''){ ?>
-	<link rel="shortcut icon" href="<?php  echo esc_url($wl_theme_options['upload_image_favicon']); ?>" /> 
-	<?php } ?>
+	
 	<link rel="stylesheet" href="<?php echo get_stylesheet_uri(); ?>" type="text/css" media="screen" />
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
 <div>
 	<!-- Header Section -->
-	<div class="header_section hd_cover" >		
-		<img style="position: absolute;" class="hd-img" src="<?php header_image(); ?>" height="<?php echo get_custom_header()->height; ?>" width="<?php echo get_custom_header()->width; ?>" alt="" /> 
+	<div class="header_section hd_cover" <?php if ( has_header_image() ) { ?> style='background-image: url("<?php header_image(); ?>")' <?php  } ?> >		
 		<div class="container" >
 			<!-- Logo & Contact Info -->
 			<div class="row ">
+			<?php if($wl_theme_options['title_position']) { ?>
 				<div class="col-md-6 col-sm-12 wl_rtl" >					
-					<div claSS="logo">						
+					<div claSS="logo logocenter">						
 					<a href="<?php echo esc_url(home_url( '/' )); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
-					<?php if($wl_theme_options['upload_image_logo']){ ?>
-						<img class="img-responsive" src="<?php echo $wl_theme_options['upload_image_logo']; ?>" style="height:<?php if($wl_theme_options['height']!='') { echo $wl_theme_options['height']; }  else { "80"; } ?>px; width:<?php if($wl_theme_options['width']!='') { echo $wl_theme_options['width']; }  else { "200"; } ?>px;" />
-						<?php } else {
-							echo get_bloginfo('name');
-						} ?>
+					<?php $custom_logo_id = get_theme_mod( 'custom_logo' );
+						$image = wp_get_attachment_image_src( $custom_logo_id,'full' ); ?>
+					 <?php if (has_custom_logo()) { ?> <img src="<?php echo $image[0]; ?>" height="<?php echo $wl_theme_options['logo_height'] ?>" width="<?php echo $wl_theme_options['logo_width'] ?>"> <?php } else { ?> <h1><?php echo get_bloginfo('name'); } ?></h1>
 					</a>
 					<p><?php bloginfo( 'description' ); ?></p>
 					</div>
 				</div>
+			<?php } else { ?>
+				<div class="col-md-6 col-sm-12 wl_rtl" >					
+					<div claSS="logo">						
+					<a href="<?php echo esc_url(home_url( '/' )); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
+					<?php $custom_logo_id = get_theme_mod( 'custom_logo' );
+						$image = wp_get_attachment_image_src( $custom_logo_id,'full' ); ?>
+					<?php if (has_custom_logo()) { ?> <img src="<?php echo $image[0]; ?>" height="<?php echo $wl_theme_options['logo_height'] ?>" width="<?php echo $wl_theme_options['logo_width'] ?>"> <?php } else { ?> <h1><?php echo get_bloginfo('name'); } ?></h1>
+					</a>
+					<p><?php bloginfo( 'description' ); ?></p>
+					</div>
+				</div>
+			<?php } ?>
 				<?php if($wl_theme_options['header_social_media_in_enabled']=='1') { ?>
 				<div class="col-md-6 col-sm-12">
 				<?php if($wl_theme_options['email_id'] || $wl_theme_options['phone_no'] !='') { ?>
 				<ul class="head-contact-info">
-						<!-- <?php if($wl_theme_options['email_id'] !='') { ?><li><i class="fa fa-envelope"></i><a href="mailto:<?php echo $wl_theme_options['email_id']; ?>"><?php echo esc_attr($wl_theme_options['email_id']); ?></a></li><?php } ?> -->						
-						<?php if($wl_theme_options['email_id'] !='') { ?><li><i class="fa fa-envelope"></i><a href="http://chalets-et-caviar.riwalennbas.com/wordpress/contact/"><?php echo esc_attr($wl_theme_options['email_id']); ?></a></li><?php } ?>
+						<?php if($wl_theme_options['email_id'] !='') { ?><li><i class="fa fa-envelope"></i><a href="mailto:<?php echo $wl_theme_options['email_id']; ?>"><?php echo esc_attr($wl_theme_options['email_id']); ?></a></li><?php } ?>
 						<?php if($wl_theme_options['phone_no'] !='') { ?><li><i class="fa fa-phone"></i><a href="tel:<?php echo $wl_theme_options['phone_no']; ?>"><?php echo esc_attr($wl_theme_options['phone_no']); ?></a></li><?php } ?>
 				</ul>
 				<?php } ?>
@@ -59,7 +66,7 @@
 	                <?php } if($wl_theme_options['gplus']!='') { ?>
 					<li class="twitter" data-toggle="tooltip" data-placement="bottom" title="gplus"><a href="<?php echo esc_url($wl_theme_options['gplus']) ; ?>"><i class="fa fa-google-plus"></i></a></li>
 	                <?php } if($wl_theme_options['instagram']!='') { ?>
-					<li class="facebook" data-toggle="tooltip" data-placement="bottom" title="instagram"><a href="<?php echo esc_url($wl_theme_options['instagram']) ; ?>"><i class="fa fa-instagram"></i></a></li>
+					<li class="instagram" data-toggle="tooltip" data-placement="bottom" title="instagram"><a href="<?php echo esc_url($wl_theme_options['instagram']) ; ?>"><i class="fa fa-instagram"></i></a></li>
 	                <?php } if($wl_theme_options['vk_link']!='') { ?>
 					<li class="twitter" data-toggle="tooltip" data-placement="bottom" title="vk"><a href="<?php echo esc_url($wl_theme_options['vk_link']) ; ?>"><i class="fa fa-vk"></i></a></li>
 	                <?php } if($wl_theme_options['qq_link']!='') { ?>
@@ -78,7 +85,7 @@
 	</div>	
 	<!-- /Header Section -->
 	<!-- Navigation  menus -->
-	<div class="navigation_menu "  data-spy="affix" data-offset-top="95" id="enigma_nav_top">
+	<div class="col-md-12 navigation_menu "  data-spy="affix" data-offset-top="95" id="enigma_nav_top">
 		<span id="header_shadow"></span>
 		<div class="container navbar-container" >
 			<nav class="navbar navbar-default " role="navigation">
