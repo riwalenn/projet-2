@@ -19,52 +19,108 @@ Text Domain: enigma
 }
 
 /****************************************************
-************ Toutes les pages/tous formats **********
+************ Tous formats **********
 ****************************************************/
 @media all{
 	.header_section .container{
 		width: 100%;
 	}
 	/********** Page d'accueil *******************/
-	.logo p, .head-contact-info li{font-size: 14px;}
-	.social li.facebook, .social li.twitter, .social li.youtube{
-		background-image: linear-gradient(to bottom, transparent 50%, #ffffff 50%);
-	}
-	.social li.facebook:hover, .social li.twitter:hover, .social li.youtube:hover{
-		background-color: #ffffff;
-		background-image: linear-gradient(to bottom, transparent 50%, #31A3DD 50%);
-	}
-	.carousel-control.left, .carousel-control.right{
-		background-image: none !important;
-	}
-	div#enigma_portfolio_section{
-		display: flex;
-		justify-content: space-around;
-	}
-	.enigma_footer_widget_area .container .row{
-		display: flex;
-		justify-content: space-around;
-	}
-	.enigma_home_portfolio_showcase_overlay_inner{
-		display: none;
-	}
-	.enigma_service_iocn i{
-		line-height: 80px;
-	}
+		/* En-tête */
+			.social li.facebook, .social li.twitter, .social li.youtube{
+				background-image: linear-gradient(to bottom, transparent 50%, #ffffff 50%);
+			}
+			.social li.facebook:hover, .social li.twitter:hover, .social li.youtube:hover{
+				background-color: #ffffff;
+				background-image: linear-gradient(to bottom, transparent 50%, #31A3DD 50%);
+			}
+			.logo p, .head-contact-info li{
+				font-size: 14px;
+			}
+		/* Menu */
+		/* Carousel */
+			.carousel-control.left, .carousel-control.right{
+				background-image: none !important;
+			}
+				/* Services */
+			.enigma_service_iocn i{
+				line-height: 80px;
+			}
+			.enigma_service{
+				padding-top: 25px !important;
+				padding-bottom: 10px !important;
+			}
+		/* Portfolio */
+			div#enigma_portfolio_section{
+				display: flex;
+				justify-content: space-around;
+			}
+			.enigma_home_portfolio_showcase_overlay{
+				background: none;
+			}
+			.enigma_home_portfolio_showcase_overlay_inner{
+				display: none;
+			}
+		/* Footer */
+			.enigma_footer_widget_area .container .row{
+				display: flex;
+				justify-content: space-between;
+			}
+			.enigma_footer_area .container{
+				width: 100%;
+			}
+			.enigma_footer_area{
+				padding: 0 0 0;
+			}
 }
 
 
 
-@media (max-width: 1920px){
-/****************************************************
-******************** Page d'accueil *****************
-****************************************************/
-	/***************** Header ***************/
-	.enigma_service_detail.media-body{
-		padding-top: 24px;
-	}
-	.container.navbar-container{
-		display: flex;
-		justify-content: space-around;
+@media (min-width: 992px){
+/******************* Page d'accueil ****************/
+		/* En-tête */
+		/* Menu */
+			.container.navbar-container{
+				display: flex;
+				justify-content: space-around;
+			}
+			.navbar-collapse{
+				margin-top: 15px !important;
+				margin-bottom: 15px !important;
+			}
+		/* Carousel */
+		/* Services */
+			.enigma_service_detail.media-body{
+				padding-top: 24px;
+			}
+			.col-md-4.service{
+				display: flex;
+				justify-content: space-around;
+			}
+		/* Portfolio */
+		/* Footer */
+
+	@media (max-width: 992px){
+	/****************************************************
+	******************** Page d'accueil *****************
+	****************************************************/
+		/* En-tête */
+		/* Menu */
+		/* Carousel */
+		/* Services */
+		/* Portfolio */
+		/* Footer */
+
+		@media (max-width: 768px){
+		/****************************************************
+		******************** Page d'accueil *****************
+		****************************************************/
+				/* En-tête */
+				/* Menu */
+				/* Carousel */
+				/* Services */
+				/* Portfolio */
+				/* Footer */
+		}
 	}
 }
