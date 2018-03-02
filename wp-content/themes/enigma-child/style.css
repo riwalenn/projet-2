@@ -37,15 +37,34 @@ Text Domain: enigma
 	.carousel-control.left, .carousel-control.right{
 		background-image: none !important;
 	}
+	div#enigma_portfolio_section{
+		display: flex;
+		justify-content: space-around;
+	}
+	.enigma_footer_widget_area .container .row{
+		display: flex;
+		justify-content: space-around;
+	}
+	.enigma_home_portfolio_showcase_overlay_inner{
+		display: none;
+	}
+	.enigma_service_iocn i{
+		line-height: 80px;
+	}
 }
 
 
 
-
+@media (max-width: 1920px){
 /****************************************************
 ******************** Page d'accueil *****************
 ****************************************************/
-@media (max-width: 1920px){
 	/***************** Header ***************/
-	
+	.enigma_service_detail.media-body{
+		padding-top: 24px;
+	}
+	.container.navbar-container{
+		display: flex;
+		justify-content: space-around;
+	}
 }

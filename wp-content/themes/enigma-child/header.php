@@ -85,7 +85,7 @@
 	</div>	
 	<!-- /Header Section -->
 	<!-- Navigation  menus -->
-	<div class="col-md-12 navigation_menu "  data-spy="affix" data-offset-top="95" id="enigma_nav_top">
+	<div class="navigation_menu "  data-spy="affix" data-offset-top="95" id="enigma_nav_top">
 		<span id="header_shadow"></span>
 		<div class="container navbar-container" >
 			<nav class="navbar navbar-default " role="navigation">
