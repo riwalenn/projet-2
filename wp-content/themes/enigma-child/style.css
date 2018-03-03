@@ -25,6 +25,9 @@ Text Domain: enigma
 	.header_section .container{
 		width: 100%;
 	}
+	.container {
+		width: 100% !important;
+	}
 	/********** Page d'accueil *******************/
 		/* En-tête */
 			.social li.facebook, .social li.twitter, .social li.youtube{
@@ -72,6 +75,45 @@ Text Domain: enigma
 			.enigma_footer_area{
 				padding: 0 0 0;
 			}
+	/********** Page contact *******************/
+		.page-id-81 .container{
+			width: 100%;
+		}
+		.col-md-4.enigma-sidebar{
+			display: none;
+		}
+		h2{
+			color: #31A3DD !important;
+			font-size: 25px !important;
+		}
+		#panel-81-1-2-0 .textwidget, div#wpgmza_map{
+			border: 1px solid #ddd;
+		}
+		div#wpgmza_map{
+			margin-top: 25px;
+		}
+		#panel-81-1-2-0 .textwidget{
+			background-color: #f5f5f5;
+			padding: 20px 10px 0px 10px;
+		}
+		.txt_loiInformatiques.panel-widget-style.panel-widget-style-for-81-2-0-0 .textwidget p{
+			font-size: 0.5em;
+			text-align: center;
+		}
+		.enigma_header_breadcrum_title, .push-right{
+			display: none;
+		}
+		.row.enigma_blog_wrapper{
+			margin-bottom: 0px;
+		}
+		#pg-81-1{
+			display: flex !important;
+			justify-content: space-between !important;
+		}
+		#pgc-81-1-1{
+			margin-left: 40px;
+		}
+
 }
 
 
@@ -99,6 +141,24 @@ Text Domain: enigma
 			}
 		/* Portfolio */
 		/* Footer */
+/******************* Page contact ****************/
+	p.txtContact{
+		font-size: 0.7em;
+		text-align: justify;
+		line-height: 2em;
+	}
+	div#pg-81-0{
+		margin-left: 50px;
+	}
+	.txt_infosContact.panel-widget-style.panel-widget-style-for-81-1-2-0 .textwidget p{
+		font-size: 12px;
+	}
+	.txt_infosContact.panel-widget-style.panel-widget-style-for-81-1-2-0 .textwidget h3{
+		font-size: 16px;
+		color: #777;
+		line-height: 2em;
+		margin: 0 0 0px;
+	}
 
 	@media (max-width: 992px){
 	/****************************************************
