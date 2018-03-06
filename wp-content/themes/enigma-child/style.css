@@ -113,6 +113,81 @@ Text Domain: enigma
 		#pgc-81-1-1{
 			margin-left: 40px;
 		}
+		/********** Articles *******************/
+			p.enigma_cats, ul.blog-date-left{
+				display: none;
+			}
+			blockquote{
+				background-color: #f5f5f5;
+			}
+			/* Prestations & services */
+				.bar{
+					background-image: url(http://localhost/wordpress/wp-content/themes/enigma-child/images/picto-bar.png);
+				}
+				.salle-de-jeu{
+					background-image: url(http://localhost/wordpress/wp-content/themes/enigma-child/images/picto-billard.png);
+				}
+				.bureau{
+					background-image: url(http://localhost/wordpress/wp-content/themes/enigma-child/images/picto-buisnesscorner.png);
+				}
+				.cave{
+					background-image: url(http://localhost/wordpress/wp-content/themes/enigma-child/images/picto-cave.png);
+				}
+				.ski-chauf{
+					background-image: url(http://localhost/wordpress/wp-content/themes/enigma-child/images/picto-chauf.png);
+				}
+				.cheminee{
+					background-image: url(http://localhost/wordpress/wp-content/themes/enigma-child/images/picto-cheminee.png);
+				}
+				.console{
+					background-image: url(http://localhost/wordpress/wp-content/themes/enigma-child/images/picto-console.png);
+				}
+				.fitness{
+					background-image: url(http://localhost/wordpress/wp-content/themes/enigma-child/images/picto-fitness.png);
+				}
+				.garage{
+					background-image: url(http://localhost/wordpress/wp-content/themes/enigma-child/images/picto-garage.png);
+				}
+				.hammam{
+					background-image: url(http://localhost/wordpress/wp-content/themes/enigma-child/images/picto-hammam.png);
+				}
+				.jacuzzi{
+					background-image: url(http://localhost/wordpress/wp-content/themes/enigma-child/images/picto-jacuzzi.png);
+				}
+				.lave-linge{
+					background-image: url(http://localhost/wordpress/wp-content/themes/enigma-child/images/picto-lavelinge.png);
+				}
+				.massage{
+					background-image: url(http://localhost/wordpress/wp-content/themes/enigma-child/images/picto-massage.png);
+				}
+				.musique{
+					background-image: url(http://localhost/wordpress/wp-content/themes/enigma-child/images/picto-zik.png);
+				}
+				.piscine{
+					background-image: url(http://localhost/wordpress/wp-content/themes/enigma-child/images/picto-swim.png);
+				}
+				.projection{
+					background-image: url(http://localhost/wordpress/wp-content/themes/enigma-child/images/picto-retro.png);
+				}
+				.sauna{
+					background-image: url(http://localhost/wordpress/wp-content/themes/enigma-child/images/picto-sauna.png);
+				}
+				.wifi{
+					background-image: url(http://localhost/wordpress/wp-content/themes/enigma-child/images/picto-wifi.png);
+				}
+				.bar, .salle-de-jeu, .bureau, .cave, .ski-chauf, .cheminee, .console, .fitness, .garage, .hammam, .jacuzzi, .lave-linge, .massage, .piscine, .retro, .sauna, .wifi, .zik{
+					background-size: contain;
+					background-repeat: no-repeat;
+					padding-left: 35px;
+					margin-left: 15px;
+				}
+				.enigma_comment_form_section, .navigation_en{
+					display: none;
+				}
+				.metaslide_articles{
+					display: flex;
+					justify-content: center;
+				}
 
 }
 

@@ -1,0 +1,9 @@
+/* These styles are used only in the backend editor */
+
+/* Here you can override any CSS which causes layout or visibility problems in the editor, */
+/* and duplicate any Theme-CSS to make the editor display look more like the real frontend */
+.bar, .salle-de-jeu, .bureau, .cave, .ski-chauf, .cheminee, .console, .fitness, .garage, .hammam, .jacuzzi, .lave-linge, .massage, .piscine, .retro, .sauna, .wifi, .zik{
+					background-size: contain;
+					background-repeat: no-repeat;
+					padding-left: 35px;
+				}
