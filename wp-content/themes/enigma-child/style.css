@@ -100,7 +100,7 @@ Text Domain: enigma
 			font-size: 0.5em;
 			text-align: center;
 		}
-		.enigma_header_breadcrum_title, .push-right{
+		.push-right{
 			display: none;
 		}
 		.row.enigma_blog_wrapper{
@@ -171,7 +171,7 @@ Text Domain: enigma
 				.piscine{
 					background-image: url(http://localhost/wordpress/wp-content/themes/enigma-child/images/picto-swim.png);
 				}
-				.projection{
+				.retro{
 					background-image: url(http://localhost/wordpress/wp-content/themes/enigma-child/images/picto-retro.png);
 				}
 				.sauna{
@@ -190,9 +190,36 @@ Text Domain: enigma
 					display: flex;
 					justify-content: center;
 				}
-
-}
-
+				ul.blog-date-left, .single-post .container .enigma_blog_wrapper .col-md-12 .enigma_blog_full .post-content-wrap .enigma_blog_thumb_wrapper_showcase, .enigma_fuul_blog_detail_padding .row, #wblizar_nav{
+					display: none;
+				}
+				.category-location .container .enigma_blog_wrapper .col-md-12 .category-location .post-content-wrap .enigma_fuul_blog_detail_padding .panel-layout{
+					display: none;
+				}
+				.category-achat .container .enigma_blog_wrapper .col-md-12 .category-achat .post-content-wrap .enigma_fuul_blog_detail_padding .panel-layout{
+					display: none;
+				}
+				.single-post .enigma_header_breadcrum_title{
+					display: none;
+				}
+				.category-achat .enigma_header_breadcrum_title .container .row .col-md-12 h1, .category-location .enigma_header_breadcrum_title .container .row .col-md-12 h1{
+					display: block;
+					font-size: 2em;
+				}
+				.enigma_header_breadcrum_title{
+					margin-bottom: 10px !important;
+					background: none !important;
+					padding-top: 0px !important;
+					padding-bottom: 0px !important;
+				}
+				.category-location .container .enigma_blog_wrapper .col-md-12 .type-post, .category-achat .container .enigma_blog_wrapper .col-md-12 .type-post{
+					width: 50%;
+				}
+				.category-location .container .enigma_blog_wrapper .col-md-12, .category-achat .container .enigma_blog_wrapper .col-md-12{
+					display: flex;
+					justify-content: space-around;
+					flex-wrap: wrap;
+				}
 
 
 @media (min-width: 992px){
