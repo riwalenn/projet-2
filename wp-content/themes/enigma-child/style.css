@@ -113,10 +113,15 @@ Text Domain: enigma
 		#pgc-81-1-1{
 			margin-left: 40px;
 		}
-		/********** Articles *******************/
-			p.enigma_cats, ul.blog-date-left{
-				display: none;
+		/********** Categories *******************/
+			p.enigma_cats{
+				text-align: left;
+				font-size: 1.3em;
 			}
+			.post-content-wrap.col-md-6.col-sm-4{
+				padding: 0 15px 0 15px;
+			}
+		/********** Articles *******************/
 			blockquote{
 				background-color: #f5f5f5;
 			}
@@ -180,9 +185,6 @@ Text Domain: enigma
 					background-repeat: no-repeat;
 					padding-left: 35px;
 					margin-left: 15px;
-				}
-				.enigma_comment_form_section, .navigation_en{
-					display: none;
 				}
 				.metaslide_articles{
 					display: flex;
