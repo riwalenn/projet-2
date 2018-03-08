@@ -19,7 +19,7 @@ Text Domain: enigma
 }
 
 /****************************************************
-************ Tous formats **********
+************ Tous formats **************************
 ****************************************************/
 @media all{
 	.header_section .container{
@@ -108,7 +108,7 @@ Text Domain: enigma
 		}
 		#pg-81-1{
 			display: flex !important;
-			justify-content: space-between !important;
+			justify-content: space-around; !important;
 		}
 		#pgc-81-1-1{
 			margin-left: 40px;
@@ -220,13 +220,13 @@ Text Domain: enigma
 					justify-content: space-around;
 					flex-wrap: wrap;
 				}
-
-
+}
+/********************************* pour portables *********************************/
 @media (min-width: 992px){
-/******************* Page d'accueil ****************/
+	/******************* Page d'accueil ****************/
 		/* En-tête */
 		/* Menu */
-			.container.navbar-container{
+		.container.navbar-container{
 				display: flex;
 				justify-content: space-around;
 			}
@@ -243,48 +243,110 @@ Text Domain: enigma
 				display: flex;
 				justify-content: space-around;
 			}
+			.enigma_service_iocn{
+				width: 50px;
+				height: 50px;
+			}
+			.enigma_service_iocn i{
+				line-height: 40px;
+				font-size: 30px;
+			}
+			.enigma_service_detail.media-body{
+				padding-top: 10px;
+			}
+
 		/* Portfolio */
 		/* Footer */
-/******************* Page contact ****************/
-	p.txtContact{
-		font-size: 0.7em;
-		text-align: justify;
-		line-height: 2em;
-	}
-	div#pg-81-0{
-		margin-left: 50px;
-	}
-	.txt_infosContact.panel-widget-style.panel-widget-style-for-81-1-2-0 .textwidget p{
-		font-size: 12px;
-	}
-	.txt_infosContact.panel-widget-style.panel-widget-style-for-81-1-2-0 .textwidget h3{
-		font-size: 16px;
-		color: #777;
-		line-height: 2em;
-		margin: 0 0 0px;
-	}
+	/******************* Page contact ****************/
+		p.txtContact{
+			font-size: 0.7em;
+			text-align: justify;
+			line-height: 2em;
+		}
+		div#pg-81-0{
+			margin-left: 50px;
+		}
+		.txt_infosContact.panel-widget-style.panel-widget-style-for-81-1-2-0 .textwidget p{
+			font-size: 12px;
+		}
+		.txt_infosContact.panel-widget-style.panel-widget-style-for-81-1-2-0 .textwidget h3{
+			font-size: 16px;
+			color: #777;
+			line-height: 2em;
+			margin: 0 0 0px;
+		}
+		.enigma_blog_post_content p{
+			font-size: 12px;
+			line-height: 24px;
+		}
+		input.wpcf7-form-control.wpcf7-text.wpcf7-validates-as-required, textarea.wpcf7-form-control.wpcf7-textarea.wpcf7-validates-as-required{
+			width: 220px;
+		}
+		#pgc-81-1-1{
+			margin-left: 0px;
+		}
 
-	@media (max-width: 992px){
-	/****************************************************
-	******************** Page d'accueil *****************
-	****************************************************/
+	/***************** Pages de catégories ***********/
+		.enigma_fuul_blog_detail_padding h2 a{
+			font-size: 20px;
+		}
+}
+/******************************* pour notebooks *****************************************/
+@media only screen and (min-width: 767px) and (max-width: 992px) {
+	/********** Page d'accueil *******************/
 		/* En-tête */
 		/* Menu */
-		/* Carousel */
+			.container.navbar-container{
+				display: flex;
+				justify-content: space-around;
+			}
+		/* Slider */
 		/* Services */
+		.enigma_service_detail.media-body{
+			padding-top: 25px;
+		}
+		div#isotope-service-container{
+			padding-left: 50px;
+		}
 		/* Portfolio */
 		/* Footer */
-
-		@media (max-width: 768px){
-		/****************************************************
-		******************** Page d'accueil *****************
-		****************************************************/
-				/* En-tête */
-				/* Menu */
-				/* Carousel */
-				/* Services */
-				/* Portfolio */
-				/* Footer */
+		#searchform .form-control{
+			width: 80% !important;
 		}
+	/*********** Pages de catégories ***************/
+	.category-achat .enigma_header_breadcrum_title .container .row .col-md-12 h1, .category-location .enigma_header_breadcrum_title .container .row .col-md-12 h1{
+		font-size: 1.5em;
 	}
+	.enigma_fuul_blog_detail_padding h2 a{
+		font-size: 15px;
+	}
+	.category-location .container .enigma_blog_wrapper .col-md-12 .type-post, .category-achat .container .enigma_blog_wrapper .col-md-12 .type-post{
+		width: 47%;
+	}
+	/************** Articles ***********************/
+	h2{
+		font-size: 20px !important;
+	}
+	.services_prestations{
+		display: flex;
+		justify-content: space-around;
+	}
+	/*********** Page Contact *********************/
+		#pgc-81-1-1{
+			margin-left: 0px;
+		}
+		.enigma_header_breadcrum_title{
+			display: none;
+		}
+		h3{
+			color: #777 !important;
+		}
+}
+/******************************* pour tablettes *********************************************/
+@media only screen and (min-width: 480px) and (max-width: 766px) {
+
+}
+/******************************* pour mobiles *************************************************/
+@media only screen and (min-width: 200px) and (max-width: 480px) {
+
 }
