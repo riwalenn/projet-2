@@ -82,6 +82,9 @@ Text Domain: enigma
 		.col-md-4.enigma-sidebar{
 			display: none;
 		}
+		h3{
+			color: #777 !important;
+		}
 		h2{
 			color: #31A3DD !important;
 			font-size: 25px !important;
@@ -110,8 +113,11 @@ Text Domain: enigma
 			display: flex !important;
 			justify-content: space-around; !important;
 		}
-		#pgc-81-1-1{
+		form.wpcf7-form{
 			margin-left: 40px;
+		}
+		.enigma_header_breadcrum_title{
+			display: none;
 		}
 		/********** Categories *******************/
 			p.enigma_cats{
@@ -271,7 +277,6 @@ Text Domain: enigma
 		}
 		.txt_infosContact.panel-widget-style.panel-widget-style-for-81-1-2-0 .textwidget h3{
 			font-size: 16px;
-			color: #777;
 			line-height: 2em;
 			margin: 0 0 0px;
 		}
@@ -338,12 +343,9 @@ Text Domain: enigma
 		.enigma_header_breadcrum_title{
 			display: none;
 		}
-		h3{
-			color: #777 !important;
-		}
 }
 /******************************* pour tablettes *********************************************/
-@media only screen and (min-width: 480px) and (max-width: 766px) {
+@media only screen and (min-width: 340px) and (max-width: 766px) {
 	/********** Page d'accueil *******************/
 		/* En-tête */
 		/* Menu */
@@ -399,13 +401,13 @@ Text Domain: enigma
 	.enigma_header_breadcrum_title{
 		display: none;
 	}
-	h3{
-		color: #777;
-	}
+	#pgc-81-1-1{
+			margin-left: 0px;
+		}
 
 }
 /******************************* pour mobiles *************************************************/
-@media only screen and (min-width: 320px) and (max-width: 480px) {
+@media only screen and (max-width: 480px) {
 	/********** Page d'accueil *******************/
 		/* En-tête */
 		/* Menu */
@@ -418,5 +420,20 @@ Text Domain: enigma
 		/* Footer */
 	/*********** Pages de catégories ***************/
 	/************** Articles ***********************/
+	.services_prestations.panel-cell-style.panel-cell-style-for-271-1-1{
+		display: block;
+	}
 	/*********** Page Contact *********************/
+	#pgc-81-1-1{
+			margin-left: 0px;
+		}
+		input.wpcf7-form-control.wpcf7-text.wpcf7-validates-as-required, textarea.wpcf7-form-control.wpcf7-textarea.wpcf7-validates-as-required{
+			width: 300px;
+		}
+	h3{
+		font-size: 16px;
+	}
+	.enigma_blog_post_content p{
+		font-size: 14px;
+	}
 }
