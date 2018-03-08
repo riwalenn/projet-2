@@ -344,9 +344,79 @@ Text Domain: enigma
 }
 /******************************* pour tablettes *********************************************/
 @media only screen and (min-width: 480px) and (max-width: 766px) {
+	/********** Page d'accueil *******************/
+		/* En-tête */
+		/* Menu */
+		.navbar-header{
+			display: none;
+		}
+		div#menu{
+			display: block;
+		}
+		ul#menu-menu-1{
+			text-align: center;
+		}
+		/* Slider */
+		.carousel{
+			display: none;
+		}
+		/* Services */
+		.enigma_service_detail h3{
+			font-size: 20px;
+			margin-top: 20px;
+		}
+		.enigma_service_iocn{
+			width: 60px;
+			height: 60px;
+		}
+		.enigma_service_iocn i{
+			line-height: 55px;
+		}
+		/* Portfolio */
+		/* Footer */
+		.enigma_footer_widget_area .container .row{
+			display: block;
+		}
+	/*********** Pages de catégories ***************/
+	.category-achat .enigma_header_breadcrum_title .container .row .col-md-12 h1, .category-location .enigma_header_breadcrum_title .container .row .col-md-12 h1{
+		font-size: 1.5em;
+	}
+	.category-location .container .enigma_blog_wrapper .col-md-12 .type-post, .category-achat .container .enigma_blog_wrapper .col-md-12 .type-post{
+		width: 47%;
+	}
+	.enigma_fuul_blog_detail_padding h2 a{
+		font-size: 15px;
+	}
+	/************** Articles ***********************/
+	h2{
+		font-size: 16px !important;
+	}
+	.services_prestations{
+		display: flex;
+		justify-content: space-around;
+	}
+	/*********** Page Contact *********************/
+	.enigma_header_breadcrum_title{
+		display: none;
+	}
+	h3{
+		color: #777;
+	}
 
 }
 /******************************* pour mobiles *************************************************/
-@media only screen and (min-width: 200px) and (max-width: 480px) {
-
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+	/********** Page d'accueil *******************/
+		/* En-tête */
+		/* Menu */
+		/* Slider */
+		.carousel{
+			display: none;
+		}
+		/* Services */
+		/* Portfolio */
+		/* Footer */
+	/*********** Pages de catégories ***************/
+	/************** Articles ***********************/
+	/*********** Page Contact *********************/
 }
