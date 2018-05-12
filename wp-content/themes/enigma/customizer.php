@@ -66,7 +66,7 @@ $wp_customize->add_section(
 		'section'    => 'general_sec',
 		'settings'   => 'enigma_options[_frontpage]',
 	) );
-	
+	/*
 	$wp_customize->add_setting(
 		'enigma_options[snoweffect]',
 		array(
@@ -82,7 +82,7 @@ $wp_customize->add_section(
 		'section'    => 'general_sec',
 		'settings'   => 'enigma_options[snoweffect]',
 	) );
-	
+	*/
 	$wp_customize->add_setting(
 		'enigma_options[title_position]',
 		array(
@@ -99,6 +99,21 @@ $wp_customize->add_section(
 		'settings'   => 'enigma_options[title_position]',
 	) );
 	
+	$wp_customize->add_setting(
+		'enigma_options[breadcrumb]',
+		array(
+			'type'    => 'option',
+			'default'=>$wl_theme_options['breadcrumb'],
+			'sanitize_callback'=>'enigma_sanitize_checkbox',
+			'capability'        => 'edit_theme_options',
+		)
+	);
+	$wp_customize->add_control( 'breadcrumb', array(
+		'label'        => __( 'Enable Breadcrumb', 'enigma' ),
+		'type'=>'checkbox',
+		'section'    => 'general_sec',
+		'settings'   => 'enigma_options[breadcrumb]',
+	) );
 	
 	// site title and logo position : left and center //
 	$wp_customize->add_setting(
@@ -194,6 +209,25 @@ $wp_customize->add_section(
 	) );
 
     //
+	//slider animation
+	$wp_customize->add_setting('enigma_options[slider_anim]',
+		array(
+			'type'    => 'option',
+			'default'=>'',
+			'sanitize_callback'=>'enigma_sanitize_text',
+			'capability'        => 'edit_theme_options',
+		)
+	);
+	
+	$wp_customize->add_control('slider_anim', array(
+		'label'        => __( 'Slider Animation', 'enigma' ),
+		'type'=>'select',
+		'section'    => 'slider_sec',
+		'settings'   => 'enigma_options[slider_anim]',
+		'choices'=>array(
+			'slide'=>__('Slide','enigma'),
+			'fadeIn'=>__('Fade','enigma'),
+	) ) );
 	
 	$wp_customize->add_setting('enigma_options[animate_type_title]',
 		array(
@@ -532,7 +566,7 @@ $wp_customize->add_section(
 			'capability'        => 'edit_theme_options',
 		)
 	);
-	$wp_customize->add_control( 'enigma_search_box', array(
+	$wp_customize->add_control( 'enigma_options_search_box', array(
 		'label'        => __( 'Enable Search Box in header', 'enigma' ),
 		'type'=>'checkbox',
 		'section'    => 'search_sec',
@@ -1038,6 +1072,35 @@ $wp_customize->add_section(
 		'settings'   => 'enigma_options[blog_category]',
 	) ) );
 	
+	$wp_customize->add_setting( 'enigma_options[read_more]', array(
+            'type'    => 'option',
+            'default'=>$wl_theme_options['read_more'],
+            'sanitize_callback'=>'enigma_sanitize_text',
+            'capability'        => 'edit_theme_options',
+        )
+    );
+    $wp_customize->add_control( 'read_more', array(
+        'label'        => __( 'Blog Read More Button', 'enigma' ),
+        'description' => 'Enter Read More button text',
+        'type'=>'text',
+        'section'    => 'blog_section',
+        'settings'   => 'enigma_options[read_more]',
+    ) );
+	
+	$wp_customize->add_setting( 'enigma_options[autoplay]', array(
+            'type'    => 'option',
+            'default'=>$wl_theme_options['autoplay'],
+            'sanitize_callback'=>'enigma_sanitize_integer',
+            'capability'        => 'edit_theme_options',
+        )
+    );
+    $wp_customize->add_control( 'autoplay', array(
+        'label'        => __( 'Blog AutoPlay', 'enigma' ),
+        'description' => 'blog autoplay on/off',
+        'type'=>'checkbox',
+        'section'    => 'blog_section',
+        'settings'   => 'enigma_options[autoplay]',
+    ) );
 	
 /* Font Family Section */
 	$wp_customize->add_section('font_section', array(
@@ -1489,7 +1552,7 @@ $wp_customize->add_section(
 	) );   
 	
 			$wp_customize->add_section( 'enigma_more' , array(
-				'title'      	=> __( 'Upgrade to Enigma Premium 20%OFF', 'enigma' ),
+				'title'      	=> __( 'Upgrade to Enigma Premium', 'enigma' ),
 				'priority'   	=> 999,
 				'panel'=>'enigma_theme_option',
 			) );
@@ -1536,23 +1599,42 @@ $wp_customize->add_section(
     'priority' => 37,
     ));
 	$wp_customize->add_setting('home_reorder',
-            array(
+        array(
 				'type'=>'theme_mod',
                 'sanitize_callback' => 'sanitize_json_string',
 				'capability'        => 'edit_theme_options',
-            )
-        );
-        $wp_customize->add_control(new enigma_Custom_sortable_Control($wp_customize,'home_reorder', array(
-			'label'=>__( 'Front Page Layout Option', 'enigma' ),
-            'section' => 'Home_Page_Layout',
-            'type'    => 'home-sortable',
-            'choices' => array(
-                'services'      => __('Home Services', 'enigma'),
-                'portfolio'     => __('Home Portfolio', 'enigma'),
-                'blog'        => __('Home Blog', 'enigma'),
-            ),
-			'settings'=>'home_reorder',
-        ))); 
+        )
+    );
+    $wp_customize->add_control(new enigma_Custom_sortable_Control($wp_customize,'home_reorder', array(
+		'label'=>__( 'Front Page Layout Option', 'enigma' ),
+        'section' => 'Home_Page_Layout',
+        'type'    => 'home-sortable',
+        'choices' => array(
+            'services'      => __('Home Services', 'enigma'),
+            'portfolio'     => __('Home Portfolio', 'enigma'),
+            'blog'        => __('Home Blog', 'enigma'),
+        ),
+		'settings'=>'home_reorder',
+    ))); 
+	
+	$wp_customize->add_setting('enigma_options[box_layout]',
+        array(
+			'type'=>'option',
+			'default'=>$wl_theme_options['box_layout'],
+            'sanitize_callback' => 'enigma_sanitize_integer',
+			'capability'        => 'edit_theme_options',
+        )
+    );
+    $wp_customize->add_control('box_layout', array(
+		'label'=>__( 'Boxed Layout', 'enigma' ),
+        'section' => 'Home_Page_Layout',
+        'type'    => 'select',
+        'choices' => array(
+            '1'      => __('Full-Width', 'enigma'),
+            '2'     => __('Boxed', 'enigma'),
+        ),
+		'settings'=>'enigma_options[box_layout]',
+    )); 
 	// home layout close // 
 }
 function enigma_sanitize_text( $input ) {
@@ -1594,14 +1676,14 @@ class More_Enigma_Control extends WP_Customize_Control {
 	*/
 	public function render_content() {
 		?>
-		<div class="row">
+		<!-- <div class="row">
 		<div class="col-md-4">
 				<div class="stitched">
 				
-				<?php echo __("Coupon Code : MEGA20", "enigma" );?>
+				<?php //echo __("Coupon Code : MEGA20", "enigma" );?>
 				</div>
 		</div>
-		</div>
+		</div> -->
 		<label style="overflow: hidden; zoom: 1;">
 			<div class="col-md-2 col-sm-6 upsell-btn">					
 					<a style="margin-bottom:20px;margin-left:20px;" href="http://weblizar.com/themes/enigma-premium/" target="blank" class="btn btn-success btn"><?php _e('Upgrade to Enigma Premium','enigma'); ?> </a>
@@ -1884,7 +1966,17 @@ class enigma_changelog_Control extends WP_Customize_Control {
 			<div class="col-md-3 col-sm-6">
 				<h2 style="margin-top:10px;color:#fff;background-color: #3ca3e0;padding: 10px;font-size: 19px;"><?php echo _e( 'Enigma Theme Changelog','enigma'); ?></h2>
 				<ul style="padding-top:20px">
-				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.1.2 - <span> Current Version </span></div>
+				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.1.7 - <span> Current Version </span></div>
+		<ol> <li> Box Layout option added. </li></ol></li>
+				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.1.6 - </div>
+		<ol> <li> Slider Animation option added. </li><li> Breadcrumb option added. </li></ol></li>
+				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.1.5 - </div>
+		<ol> <li> Snow effect issue fixed. </li></ol></li>
+				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.1.4 - </div>
+		<ol> <li> Autoplay Option added in blog options.  </li><li>Read More button option added in blog options. </li></ol></li>
+				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.1.3 - </div>
+		<ol> <li> Author name added for single page. </li></ol></li>
+				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.1.2 - </div>
 		<ol> <li> Description Updates</li></ol></li>
 				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.1.1 -</div>
 		<ol> <li> Minor Change</li></ol></li>
@@ -1892,7 +1984,6 @@ class enigma_changelog_Control extends WP_Customize_Control {
 		<ol> <li> Category option added for blog. </li></ol></li>
 				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.0 - </div>
 		<ol> <li> Review Request Banner dismiss option added. </li></ol></li>
-				<li class="upsell-enigma"> <div class="versionhd"> Version: 3.9 - </div>
 		</ul>
 			</div>
 			<div class="col-md-2 col-sm-6 upsell-btn">					

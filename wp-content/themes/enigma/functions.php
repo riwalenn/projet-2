@@ -38,7 +38,11 @@
 			'excerpt_blog'=>'55',
 			'home_reorder'=>'',
 			'upload_image_favicon'=>'',
-			'snoweffect'=>'0',
+			'snoweffect'=>'',
+			'read_more'=>__('Read More', 'enigma' ),
+			'autoplay'=>'1',
+			'breadcrumb'=>'1',
+			'box_layout'=>'1',
 
 			'slider_image_speed' => '',
 			'slide_image_1' => $ImageUrl,
@@ -55,7 +59,8 @@
 			'slide_title_3' => __('Contrary to popular ', 'enigma' ),
 			'slide_desc_3' => __('Aldus PageMaker including versions of Lorem Ipsum, rutrum turpi', 'enigma' ),
 			'slide_btn_text_3' => __('Read More', 'enigma' ),
-			'slide_btn_link_3' => '#',			
+			'slide_btn_link_3' => '#',
+			'slider_anim'=>'',
 			// Footer Call-Out
 			'fc_home'=>'1',			
 			'fc_title' => __('Lorem Ipsum is simply dummy text of the printing and typesetting industry. ', 'enigma' ),
@@ -519,7 +524,7 @@ function enigma_custom_admin_notice() {
 			<?php } ?>
 				<strong><?php _e('Rate Us here','enigma');?></strong>
 			</a>
-			<a class="dismiss" href="?-notice-dismissed<?php echo $currentversion;?>"><?php _e('Dismiss','enigma');?></a>
+			<a class="dismiss" href="?-notice-dismissed<?php echo $currentversion;?>"><strong><?php _e('Dismiss','enigma');?></strong></a>
 			</p>
 		</div>
 		
@@ -542,9 +547,9 @@ function enigma_notice_dismissed() {
 add_action( 'admin_init', 'enigma_notice_dismissed' );
 
 $theme_options = weblizar_get_options();
-if($theme_options['snoweffect']!=''){
+if($theme_options['snoweffect'] =='1'){
 	function snow_script() {
-	wp_enqueue_script('snow', get_template_directory_uri() .'/js/snowstorm.js');
+	wp_dequeue_script('snow', get_template_directory_uri() .'/js/snowstorm.js');
 	}
 	add_action( 'wp_enqueue_scripts', 'snow_script' );
 }

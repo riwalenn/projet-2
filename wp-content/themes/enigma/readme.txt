@@ -6,8 +6,30 @@ Enigma
 
 CHANGE-LOG:
 
+@Version: 4.1.7 [09-05-2018]
+1. Box Layout option added.
+
+@Version: 4.1.6 [23-04-2018]
+1. Slider Animation option added.
+2. Breadcrumb option added.
+
+@Version: 4.1.5 [02-04-2018]
+1. Snow effect issue fixed.
+2. Updated Pro Themes and Plugins Page.
+
+@Version: 4.1.4 [24-03-2018]
+1. Autoplay Option added in blog options. 
+2. Read More button option added in blog options. 
+
+@Version: 4.1.3 [12-03-2018]
+1. Author name added for single page.
+2. Minor changes in rate banner. 
+
+@Version: 4.1.2 [27-02-2018]
+1. Description Updates.
+
 @Version: 4.1.1 [08-02-2018]
-1.Minor Change
+1.Minor Change.
 
 @Version: 4.1 [03-01-2018]
 1. Category option added for blog.
