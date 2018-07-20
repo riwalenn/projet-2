@@ -11,10 +11,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <meta charset="<?php bloginfo('charset'); ?>" />	
-	<?php $wl_theme_options = weblizar_get_options(); ?>
-	
-	<link rel="stylesheet" href="<?php echo get_stylesheet_uri(); ?>" type="text/css" media="screen" />
-	<?php wp_head(); ?>
+	<?php $wl_theme_options = weblizar_get_options();
+	wp_head(); ?>
 </head>
 <body <?php if($wl_theme_options['box_layout']==2) { body_class('boxed'); } else body_class(); ?>>
 <div>
@@ -29,7 +27,7 @@
 					<a href="<?php echo esc_url(home_url( '/' )); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
 					<?php $custom_logo_id = get_theme_mod( 'custom_logo' );
 						$image = wp_get_attachment_image_src( $custom_logo_id,'full' ); ?>
-					 <?php if (has_custom_logo()) { ?> <img src="<?php echo $image[0]; ?>" height="<?php echo $wl_theme_options['logo_height'] ?>" width="<?php echo $wl_theme_options['logo_width'] ?>"> <?php } else { ?> <h1><?php echo get_bloginfo('name'); } ?></h1>
+					 <?php if (has_custom_logo()) { ?> <img src="<?php echo esc_attr($image[0]); ?>" height="<?php echo esc_attr($wl_theme_options['logo_height']) ?>" width="<?php echo esc_attr($wl_theme_options['logo_width']) ?>"> <?php } else { ?> <h1><?php echo esc_html(get_bloginfo('name')); } ?></h1>
 					</a>
 					<p><?php bloginfo( 'description' ); ?></p>
 					</div>
@@ -40,7 +38,7 @@
 					<a href="<?php echo esc_url(home_url( '/' )); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
 					<?php $custom_logo_id = get_theme_mod( 'custom_logo' );
 						$image = wp_get_attachment_image_src( $custom_logo_id,'full' ); ?>
-					<?php if (has_custom_logo()) { ?> <img src="<?php echo $image[0]; ?>" height="<?php echo $wl_theme_options['logo_height'] ?>" width="<?php echo $wl_theme_options['logo_width'] ?>"> <?php } else { ?> <h1><?php echo get_bloginfo('name'); } ?></h1>
+					<?php if (has_custom_logo()) { ?> <img src="<?php echo esc_attr($image[0]); ?>" height="<?php echo esc_attr($wl_theme_options['logo_height']) ?>" width="<?php echo esc_attr($wl_theme_options['logo_width']) ?>"> <?php } else { ?> <h1><?php echo esc_html(get_bloginfo('name')); } ?></h1>
 					</a>
 					<p><?php bloginfo( 'description' ); ?></p>
 					</div>
@@ -50,29 +48,29 @@
 				<div class="col-md-6 col-sm-12">
 				<?php if($wl_theme_options['email_id'] || $wl_theme_options['phone_no'] !='') { ?>
 				<ul class="head-contact-info">
-						<?php if($wl_theme_options['email_id'] !='') { ?><li><i class="fa fa-envelope"></i><a href="mailto:<?php echo $wl_theme_options['email_id']; ?>"><?php echo esc_attr($wl_theme_options['email_id']); ?></a></li><?php } ?>
-						<?php if($wl_theme_options['phone_no'] !='') { ?><li><i class="fa fa-phone"></i><a href="tel:<?php echo $wl_theme_options['phone_no']; ?>"><?php echo esc_attr($wl_theme_options['phone_no']); ?></a></li><?php } ?>
+						<?php if($wl_theme_options['email_id'] !='') { ?><li><i class="fa fa-envelope"></i><a href="mailto:<?php echo esc_attr($wl_theme_options['email_id']); ?>"><?php echo esc_attr($wl_theme_options['email_id']); ?></a></li><?php } ?>
+						<?php if($wl_theme_options['phone_no'] !='') { ?><li><i class="fa fa-phone"></i><a href="tel:<?php echo esc_attr($wl_theme_options['phone_no']); ?>"><?php echo esc_attr($wl_theme_options['phone_no']); ?></a></li><?php } ?>
 				</ul>
 				<?php } ?>
 					<ul class="social">
 					<?php if($wl_theme_options['fb_link']!='') { ?>
-					   <li class="facebook" data-toggle="tooltip" data-placement="bottom" title="Facebook"><a  href="<?php echo esc_url($wl_theme_options['fb_link']); ?>"><i class="fa fa-facebook"></i></a></li>
+					   <li class="facebook" data-toggle="tooltip" data-placement="bottom" title="Facebook"><a  href="<?php echo esc_url($wl_theme_options['fb_link']); ?>"><i class="fab fa-facebook-f"></i></a></li>
 					<?php } if($wl_theme_options['twitter_link']!='') { ?>
-					<li class="twitter" data-toggle="tooltip" data-placement="bottom" title="Twitter"><a href="<?php echo esc_url($wl_theme_options['twitter_link']); ?>"><i class="fa fa-twitter"></i></a></li>
+					<li class="twitter" data-toggle="tooltip" data-placement="bottom" title="Twitter"><a href="<?php echo esc_url($wl_theme_options['twitter_link']); ?>"><i class="fab fa-twitter"></i></a></li>
 					<?php } if($wl_theme_options['linkedin_link']!='') { ?>					
-					<li class="linkedin" data-toggle="tooltip" data-placement="bottom" title="Linkedin"><a href="<?php echo esc_url($wl_theme_options['linkedin_link']); ?>"><i class="fa fa-linkedin"></i></a></li>
+					<li class="linkedin" data-toggle="tooltip" data-placement="bottom" title="Linkedin"><a href="<?php echo esc_url($wl_theme_options['linkedin_link']); ?>"><i class="fab fa-linkedin-in"></i></a></li>
 					<?php } if($wl_theme_options['youtube_link']!='') { ?>
-					<li class="youtube" data-toggle="tooltip" data-placement="bottom" title="Youtube"><a href="<?php echo esc_url($wl_theme_options['youtube_link']) ; ?>"><i class="fa fa-youtube"></i></a></li>
+					<li class="youtube" data-toggle="tooltip" data-placement="bottom" title="Youtube"><a href="<?php echo esc_url($wl_theme_options['youtube_link']) ; ?>"><i class="fab fa-youtube"></i></a></li>
 	                <?php } if($wl_theme_options['gplus']!='') { ?>
-					<li class="twitter" data-toggle="tooltip" data-placement="bottom" title="gplus"><a href="<?php echo esc_url($wl_theme_options['gplus']) ; ?>"><i class="fa fa-google-plus"></i></a></li>
+					<li class="twitter" data-toggle="tooltip" data-placement="bottom" title="gplus"><a href="<?php echo esc_url($wl_theme_options['gplus']) ; ?>"><i class="fab fa-google-plus-g"></i></a></li>
 	                <?php } if($wl_theme_options['instagram']!='') { ?>
-					<li class="instagram" data-toggle="tooltip" data-placement="bottom" title="instagram"><a href="<?php echo esc_url($wl_theme_options['instagram']) ; ?>"><i class="fa fa-instagram"></i></a></li>
+					<li class="instagram" data-toggle="tooltip" data-placement="bottom" title="instagram"><a href="<?php echo esc_url($wl_theme_options['instagram']) ; ?>"><i class="fab fa-instagram"></i></a></li>
 	                <?php } if($wl_theme_options['vk_link']!='') { ?>
-					<li class="twitter" data-toggle="tooltip" data-placement="bottom" title="vk"><a href="<?php echo esc_url($wl_theme_options['vk_link']) ; ?>"><i class="fa fa-vk"></i></a></li>
+					<li class="twitter" data-toggle="tooltip" data-placement="bottom" title="vk"><a href="<?php echo esc_url($wl_theme_options['vk_link']) ; ?>"><i class="fab fa-vk"></i></a></li>
 	                <?php } if($wl_theme_options['qq_link']!='') { ?>
-					<li class="youtube" data-toggle="tooltip" data-placement="bottom" title="qq"><a href="<?php echo esc_url($wl_theme_options['qq_link']) ; ?>"><i class="fa fa-qq"></i></a></li>
+					<li class="youtube" data-toggle="tooltip" data-placement="bottom" title="qq"><a href="<?php echo esc_url($wl_theme_options['qq_link']) ; ?>"><i class="fab fa-qq"></i></a></li>
 	                <?php } if($wl_theme_options['whatsapp_link']!='') { ?>
-					<li class="linkedin" data-toggle="tooltip" data-placement="bottom" title="whatsapp"><a href="tel:<?php echo esc_attr($wl_theme_options['whatsapp_link']) ; ?>"><i class="fa fa-whatsapp"></i></a></li>
+					<li class="linkedin" data-toggle="tooltip" data-placement="bottom" title="whatsapp"><a href="tel:<?php echo esc_attr($wl_theme_options['whatsapp_link']) ; ?>"><i class="fab fa-whatsapp"></i></a></li>
 	                <?php } ?>
 					
 					</ul>	
@@ -92,7 +90,7 @@
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
 					 
-					  <span class="sr-only"><?php _e('Toggle navigation','enigma');?></span>
+					  <span class="sr-only"><?php esc_html_e('Toggle navigation','enigma');?></span>
 					  <span class="icon-bar"></span>
 					  <span class="icon-bar"></span>
 					  <span class="icon-bar"></span>

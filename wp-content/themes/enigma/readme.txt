@@ -6,6 +6,25 @@ Enigma
 
 CHANGE-LOG:
 
+@Version: 4.4 [17-07-2018]
+1. Google fonts added in typography option.
+
+@Version: 4.3 [26-06-2018]
+1. Go Enigma pro option added in customizer.
+2. Rating option added on admin panel.
+
+@Version: 4.2 [19-06-2018]
+1. FontAwesome library updated version 4.7.0
+2. Go Enigma Premium option added on admin panel.
+
+@Version: 4.1.9 [07-06-2018]
+1. Bug Fix
+
+@Version: 4.1.8 [19-05-2018]
+1. screen-shot image change
+2. Image url change as per theme review guide line
+
+
 @Version: 4.1.7 [09-05-2018]
 1. Box Layout option added.
 
@@ -347,10 +366,14 @@ Enigma_Theme_Script | V 1.0 | weblizar
 Theme-Footer-Script | V 1.0 | weblizar 
 (c) 2014  | Licensed under the MIT license and GPL license.
 /*****BUNDELED CSS***/
-Font Awesome CSS |  v4.3.0 | 
+Font Awesome CSS |  v4.7.0 | 
 Copyright 2015  Dave Gandy.,
 Licensed under MIT license :http://opensource.org/licenses/MIT
 Source:http://fortawesome.github.io/Font-Awesome/assets/font-awesome-4.3.0.zip
+
+Font Awesome CSS |  v 5.0.13 | 
+Copyright 2015  Dave Gandy.,
+Licensed under MIT license :http://opensource.org/licenses/MIT
 
 Bootstrap CSS |  v3.1.1 | 
 Copyright 2011-2014 Twitter, Inc
@@ -380,9 +403,12 @@ Licensed under GPL
 Images Taken from :
 pixabay.com
 
+Image Header : https://pixabay.com/en/snow-nature-panoramic-winter-3193865/
+
 Image Slide 1: http://pixabay.com/en/new-york-city-brooklyn-bridge-night-336475/
-Image Slide 2:http://pixabay.com/en/tractor-field-landscape-campaign-396477/
+Image Slide 2:https://pixabay.com/en/fantasy-landscape-mountains-human-2925250/
 Image Slide 3:http://pixabay.com/en/nice-c%C3%B4te-d---azur-france-398051/
+
 
 =================Portfolio Images URL ====================
 http://pixabay.com/en/girl-portrait-outdoors-pretty-344335/
