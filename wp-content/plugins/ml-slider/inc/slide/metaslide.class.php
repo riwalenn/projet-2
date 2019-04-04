@@ -73,16 +73,17 @@ class MetaSlide {
     /**
      * Updates the slide meta value to a new image.
      *
-     * @param int $slide_id The id of the slide being updated
-     * @param int $image_id The id of the new image to use
+     * @param int $slide_id     The id of the slide being updated
+     * @param int $image_id     The id of the new image to use
+     * @param int $slideshow_id The id of the slideshow
      *
      * @return array|WP_error The status message and if success, the thumbnail link
      */
-    protected function update_slide_image($slide_id, $image_id) {
+    protected function update_slide_image($slide_id, $image_id, $slideshow_id = null) {
         /*
         * Verifies that the $image_id is an actual image
-        */        
-        if (!($image_url = wp_get_attachment_image_url($image_id))) {
+        */
+        if (!($thumbnail_url = wp_get_attachment_image_url($image_id))) {
             return new WP_Error('update_failed', __('The requested image does not exist. Please try again.', 'ml-slider'), array('status' => 409));
         }
 
@@ -98,9 +99,22 @@ class MetaSlide {
         * or that the update was successful
         */
         if (($image_id === $image_id_old) || update_post_meta($slide_id, '_thumbnail_id', $image_id, $image_id_old)) {
+
+            if ($slideshow_id) {
+                $this->set_slider($slideshow_id);
+                // get resized image
+                $imageHelper = new MetaSliderImageHelper(
+                    $slide_id,
+                    $this->settings['width'],
+                    $this->settings['height'],
+                    isset($this->settings['smartCrop']) ? $this->settings['smartCrop'] : 'false'
+                );
+            }
+
             return array(
                 'message' => __('The image was successfully updated.', 'ml-slider'),
-                'img_url' => $image_url
+                'thumbnail_url' => $thumbnail_url,
+                'img_url' => $imageHelper ? $imageHelper->get_image_url() : wp_get_attachment_image_url($image_id, 'full')
             );
         }
         
@@ -119,9 +133,9 @@ class MetaSlide {
                 'message' => __('The security check failed. Please refresh the page and try again.', 'ml-slider')
             ), 401);
         }
-        
+
         $result = $this->update_slide_image(
-            absint($_POST['slide_id']), absint($_POST['image_id'])
+            absint($_POST['slide_id']), absint($_POST['image_id']), absint($_POST['slider_id'])
         );
         
         if (is_wp_error($result)) {
@@ -133,31 +147,28 @@ class MetaSlide {
     }
 
 
-    /**
-     * Return the correct slide HTML based on whether we're viewing the slides in the
-     * admin panel or on the front end.
-     *
-     * @return string slide html
-     */
-    public function get_slide_html() {
+	/**
+	 * Return the correct slide HTML based on whether we're viewing the slides in the
+	 * admin panel or on the front end.
+	 *
+	 * @return string slide html
+	 */
+	public function get_slide_html() {
 
-        $viewing_theme_editor = is_admin() && isset( $_GET['page'] ) && $_GET['page'] == 'metaslider-theme-editor';
-        $viewing_preview = did_action('admin_post_metaslider_preview');
-        $doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
+		// If we are on the MetaSlider settings page, and the user has permission
+		// return the admin style slides
+		$on_settings_page = isset($_GET['page']) && ('metaslider' === $_GET['page']);
+		$has_permission = current_user_can(apply_filters('metaslider_capability', 'edit_others_posts'));
+		$ajax_call = apply_filters('wp_doing_ajax', defined('DOING_AJAX') && DOING_AJAX);
+		$rest_call = defined('REST_REQUEST') && REST_REQUEST;
 
-        if ( $doing_ajax || $viewing_preview || $viewing_theme_editor ) {
-            return $this->get_public_slide();
-        }
+		if (is_admin() && $on_settings_page && $has_permission && !$ajax_call && !$rest_call) {
+			return $this->get_admin_slide();
+		}
 
-        $capability = apply_filters( 'metaslider_capability', 'edit_others_posts' );
-
-        if ( is_admin() && current_user_can( $capability ) ) {
-            return $this->get_admin_slide();
-        }
-
-        return $this->get_public_slide();
-
-    }
+		// Otherwise deliver the public slide markup
+		return $this->get_public_slide();
+	}
 
     /**
      * Check if a slide already exists in a slideshow
@@ -197,9 +208,12 @@ class MetaSlide {
     public function build_image_tag($attributes) {
         $attachment_id = $this->get_attachment_id();
         
-        if ('disabled' == $this->settings['smartCrop'] || 'disabled_pad' == $this->settings['smartCrop']) {
-            // remove extra src attribute
-            if (isset($attributes['src'])) unset($attributes['src']);
+        if (('disabled' == $this->settings['smartCrop'] || 'disabled_pad' == $this->settings['smartCrop']) && ('image' == $this->identifier || 'html_overlay' == $this->identifier)) {
+
+			// This will use WP built in image building so we can remove some of these attributes
+			unset($attributes['src']);
+			unset($attributes['height']);
+			unset($attributes['width']);
             return wp_get_attachment_image($attachment_id, apply_filters('metaslider_default_size', 'full', $this->slider), false, $attributes);
         }
         $html = "<img";
@@ -333,7 +347,7 @@ class MetaSlide {
      * @return string
      */
     public function get_delete_button_html() {
-        return "<button class='delete-slide alignright' title='" . __("Delete Slide", "ml-slider") . "' data-slide-id='{$this->slide->ID}'><i><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-x'><line x1='18' y1='6' x2='6' y2='18'/><line x1='6' y1='6' x2='18' y2='18'/></svg></i></button>";
+        return "<button class='toolbar-button delete-slide alignright tipsy-tooltip-top' title='" . __("Delete slide", "ml-slider") . "' data-slide-id='{$this->slide->ID}'><i><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-x'><line x1='18' y1='6' x2='6' y2='18'/><line x1='6' y1='6' x2='18' y2='18'/></svg></i></button>";
     }
 
     /**
@@ -363,8 +377,9 @@ class MetaSlide {
      * @return string The html for the edit button on a slide image
      */
     public function get_update_image_button_html() {
-        $attachment_id = $this->get_attachment_id();
-        return "<button class='update-image alignright' data-button-text='" . __("Update slide image", "ml-slider") . "' title='" . __("Update slide image", "ml-slider") . "' data-slide-id='{$this->slide->ID}' data-attachment-id='{$attachment_id}'><i><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-edit-2'><polygon points='16 3 21 8 8 21 3 21 3 16 16 3'/></svg></i></button>";
+		$attachment_id = $this->get_attachment_id();
+		$slide_type = get_post_meta($this->slide->ID, 'ml-slider_type', true);
+        return "<button class='toolbar-button update-image alignright tipsy-tooltip-top' data-slide-type='{$slide_type}' data-button-text='" . __("Update slide image", "ml-slider") . "' title='" . __("Update slide image", "ml-slider") . "' data-slide-id='{$this->slide->ID}' data-attachment-id='{$attachment_id}'><i><svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-edit-2'><polygon points='16 3 21 8 8 21 3 21 3 16 16 3'/></svg></i></button>";
     }
 
     /**

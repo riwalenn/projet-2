@@ -19,26 +19,6 @@ function weblizar_gl_customizer( $wp_customize ) {
 		'selector' => '.logo p',
 	) );
 	
-	$wp_customize->add_panel( 'pro_option', array(
-    'title' => __( 'Get Enigma Premium','enigma' ),
-    'priority' => 1, // Mixed with top-level-section hierarchy.
-	) );
-	$wp_customize->add_section( 'enigma-pro',
-        array(
-		'title' =>  __( 'Get Enigma Premium','enigma' ),
-        'priority'   => 0,
-        'capability' => "edit_theme_options",
-    ));
-	$wp_customize->add_setting( 'pro', array(
-		'default'    		=> null,
-		'sanitize_callback' => 'sanitize_text_field',
-	));
-	$wp_customize->add_control( new Info_PRO_Section( $wp_customize, 'pro', array(
-			'section'  => 'enigma-pro',
-			'settings' => 'pro',
-			'priority' => 1,
-	)));
-	
 	/* Genral section */
 	$wp_customize->add_panel( 'enigma_theme_option', array(
     'title' => __( 'Theme Options','enigma' ),
@@ -578,9 +558,9 @@ $wp_customize->add_section(
 		   ) );
 		
 	$wp_customize->add_setting(
-		'enigma_options_search_box',
+		'enigma_options[search_box]',
 		array(
-			'type'    => 'theme_mod',
+			'type'    => 'option',
 			'default'=>'',
 			'sanitize_callback'=>'enigma_sanitize_text',
 			'capability'        => 'edit_theme_options',
@@ -590,7 +570,7 @@ $wp_customize->add_section(
 		'label'        => __( 'Enable Search Box in header', 'enigma' ),
 		'type'=>'checkbox',
 		'section'    => 'search_sec',
-		'settings'   => 'enigma_options_search_box',
+		'settings'   => 'enigma_options[search_box]',
 	) );
 	/* search-box */
 	
@@ -1704,9 +1684,9 @@ endif;
 if ( class_exists( 'WP_Customize_Control' ) && ! class_exists( 'Enigma_Customizer_Icon_Picker_Control' ) ) :
 	class Enigma_Customizer_Icon_Picker_Control extends WP_Customize_Control {
 		public function enqueue() {
-			wp_enqueue_script( 'fontawesome-iconpicker', get_stylesheet_directory_uri() . '/iconpicker-control/assets/js/fontawesome-iconpicker.min.js', array( 'jquery' ), '1.0.0', true );
-			wp_enqueue_script( 'iconpicker-control', get_stylesheet_directory_uri() . '/iconpicker-control/assets/js/iconpicker-control.js', array( 'jquery' ), '1.0.0', true );
-			wp_enqueue_style( 'fontawesome-iconpicker', get_stylesheet_directory_uri() . '/iconpicker-control/assets/css/fontawesome-iconpicker.min.css' );
+			wp_enqueue_script( 'fontawesome-iconpicker', get_template_directory_uri() . '/iconpicker-control/assets/js/fontawesome-iconpicker.min.js', array( 'jquery' ), '1.0.0', true );
+			wp_enqueue_script( 'iconpicker-control', get_template_directory_uri() . '/iconpicker-control/assets/js/iconpicker-control.js', array( 'jquery' ), '1.0.0', true );
+			wp_enqueue_style( 'fontawesome-iconpicker', get_template_directory_uri() . '/iconpicker-control/assets/css/fontawesome-iconpicker.min.css' );
 		}
 		
 		
@@ -1868,28 +1848,13 @@ class enigma_changelog_Control extends WP_Customize_Control {
 			<div class="col-md-3 col-sm-6">
 				<h2 style="margin-top:10px;color:#fff;background-color: #3ca3e0;padding: 10px;font-size: 19px;"><?php echo esc_html_e( 'Enigma Theme Changelog','enigma'); ?></h2>
 				<ul style="padding-top:20px">
-				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.1.9 - <span> Current Version </span></div>
-		<ol> <li> Bug Fix </li></ol></li>
-				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.1.8 - </div>
-		<ol> <li> screen-shot image change </li></ol></li>
-				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.1.7 - </div>
-		<ol> <li> Box Layout option added. </li></ol></li>
-				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.1.6 - </div>
-		<ol> <li> Slider Animation option added. </li><li> Breadcrumb option added. </li></ol></li>
-				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.1.5 - </div>
-		<ol> <li> Snow effect issue fixed. </li></ol></li>
-				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.1.4 - </div>
-		<ol> <li> Autoplay Option added in blog options.  </li><li>Read More button option added in blog options. </li></ol></li>
-				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.1.3 - </div>
-		<ol> <li> Author name added for single page. </li></ol></li>
-				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.1.2 - </div>
-		<ol> <li> Description Updates</li></ol></li>
-				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.1.1 -</div>
-		<ol> <li> Minor Change</li></ol></li>
-				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.1 - </div>
-		<ol> <li> Category option added for blog. </li></ol></li>
-				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.0 - </div>
-		<ol> <li> Review Request Banner dismiss option added. </li></ol></li>
+				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.6 - <span> Current Version </span></div>
+		<ol> <li> Minor issue fixed.</li></ol></li>
+				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.5 - </div>
+		<ol> <li>Minor issue fixed.</li></ol></li>
+				<li class="upsell-enigma"> <div class="versionhd"> Version: 4.4 - </div>
+		<ol> <li> Google fonts added in typography option. </li></ol></li>
+				
 		</ul>
 			</div>
 			<div class="col-md-2 col-sm-6 upsell-btn">					
@@ -1910,7 +1875,8 @@ class enigma_animation extends WP_Customize_Control {
 	*/
 	public function render_content() { ?>
 	 <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
-	<?php 
+	<?php $wl_theme_options = weblizar_get_options();
+	$animate_slider   = $wl_theme_options['animate_type_title'];
 	$animation = array('fadeIn' ,'fadeInUp','fadeInDown','fadeInLeft','fadeInRight' ,'bounceIn','bounceInUp','bounceInDown', 'bounceInLeft','bounceInRight','rotateIn','rotateInUpLeft','rotateInDownLeft','rotateInUpRight','rotateInDownRight',);?>
 				
 			<select name="animate_slider" class="webriti_inpute" <?php $this->link(); ?>>
@@ -1937,19 +1903,4 @@ class enigma_category_Control extends WP_Customize_Control
 	}  /* public function ends */
 }/*   class ends */
 endif; 
-
-if ( class_exists( 'WP_Customize_Control' ) && ! class_exists( 'Info_PRO_Section' ) ) :
-class Info_PRO_Section extends WP_Customize_Control 
-{
-    protected function render()
-    {
-        ?>
-        	<h2 class="pro_title"> Visit Enigma Premium Detail & Demo </h2>
-				<div class="enigma_pro"> 
-                    <a href="https://weblizar.com/themes/enigma-premium/" target="_blank" class="button enigma_pro1"><?php esc_html_e("Upgrade to PRO", 'enigma')?></a>
-				</div>
-			<?php
-    }
-}
-endif;
 ?>

@@ -9,6 +9,8 @@ class easyFancyBox {
 
 	public static $plugin_basename;
 
+	public static $plugin_dir;
+
 	private static $inline_script;
 
 	private static $inline_style;
@@ -81,7 +83,7 @@ class easyFancyBox {
 		$script .= ' };
 if(typeof easy_fancybox_handler===\'undefined\'){
 var easy_fancybox_handler=function(){
-jQuery(\'.nofancybox,a.pin-it-button,a[href*="pinterest.com/pin/create"]\').addClass(\'nolightbox\');';
+jQuery(\'.nofancybox,a.wp-block-file__button,a.pin-it-button,a[href*="pinterest.com/pin/create"],a[href*="facebook.com/share"],a[href*="twitter.com/share"]\').addClass(\'nolightbox\');';
 
 		foreach (self::$options as $key => $value) {
 			// check if not enabled or hide=true then skip
@@ -99,7 +101,7 @@ jQuery(\'.nofancybox,a.pin-it-button,a[href*="pinterest.com/pin/create"]\').addC
 			if ( !empty($autoAttribute) ) {
 				if ( is_numeric($autoAttribute) ) {
 					$script .= '
-jQuery(\''.$value['options']['autoAttribute']['selector'].'\').not(\'.nolightbox,li.nolightbox>a\').addClass(\''.$value['options']['class']['default'].'\');';
+jQuery('.$value['options']['autoAttribute']['selector'].').not(\'.nolightbox,li.nolightbox>a\').addClass(\''.$value['options']['class']['default'].'\');';
 				} else {
 					// set selectors
 					$file_types = array_filter( explode( ' ', str_replace( ',', ' ', $autoAttribute ) ) );
@@ -116,11 +118,13 @@ var fb_'.$key.'_select=\'';
 					}
 					$script .= '\';';
 
+					$autoselector = class_exists('easyFancyBox_Advanced') ? get_option($value['options']['autoSelector']['id'],$value['options']['autoSelector']['default']) : $value['options']['autoSelector']['default'];
+
 					// class and rel depending on settings
 					if( '1' == get_option($value['options']['autoAttributeLimit']['id'],$value['options']['autoAttributeLimit']['default']) ) {
 						// add class
 						$script .= '
-var fb_'.$key.'_sections=jQuery(\''.get_option($value['options']['autoSelector']['id'],$value['options']['autoSelector']['default']).'\');
+var fb_'.$key.'_sections=jQuery(\''.$autoselector.'\');
 fb_'.$key.'_sections.each(function(){jQuery(this).find(fb_'.$key.'_select).addClass(\''.$value['options']['class']['default'].'\')';
 						// and set rel
 						switch( get_option($value['options']['autoGallery']['id'],$value['options']['autoGallery']['default']) ) {
@@ -150,7 +154,7 @@ jQuery(fb_'.$key.'_select).addClass(\''.$value['options']['class']['default'].'\
 
 							case '1':
 								$script .= ';
-var fb_'.$key.'_sections = jQuery(\''.get_option($value['options']['autoSelector']['id'],$value['options']['autoSelector']['default']).'\');
+var fb_'.$key.'_sections=jQuery(\''.$autoselector.'\');
 fb_'.$key.'_sections.each(function(){jQuery(this).find(fb_'.$key.'_select).attr(\'rel\',\'gallery-\'+fb_'.$key.'_sections.index(this));});';
 								break;
 
@@ -277,24 +281,24 @@ var easy_fancybox_auto=function(){setTimeout(function(){jQuery(\'a[class*="'.$tr
 		// running our IE alphaimageloader relative path styles here
 		if ( isset($compatIE8) && 'true' == $compatIE8 ) {
 			self::$inline_style_ie = '/* IE6 */
-.fancybox-ie6 #fancybox-close{background:transparent;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'fancybox/fancy_close.png",sizingMethod="scale")}
-.fancybox-ie6 #fancybox-left-ico{background:transparent;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'fancybox/fancy_nav_left.png",sizingMethod="scale")}
-.fancybox-ie6 #fancybox-right-ico{background:transparent;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'fancybox/fancy_nav_right.png",sizingMethod="scale")}
-.fancybox-ie6 #fancybox-title-over{background:transparent;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'fancybox/fancy_title_over.png",sizingMethod="scale");zoom:1}
-.fancybox-ie6 #fancybox-title-float-left{background:transparent;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'fancybox/fancy_title_left.png",sizingMethod="scale")}
-.fancybox-ie6 #fancybox-title-float-main{background:transparent;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'fancybox/fancy_title_main.png",sizingMethod="scale")}
-.fancybox-ie6 #fancybox-title-float-right{background:transparent;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'fancybox/fancy_title_right.png",sizingMethod="scale")}
-#fancybox-loading.fancybox-ie6 div{background:transparent;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'fancybox/fancy_loading.png",sizingMethod="scale")}
+.fancybox-ie6 #fancybox-close{background:transparent;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'images/fancy_close.png",sizingMethod="scale")}
+.fancybox-ie6 #fancybox-left-ico{background:transparent;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'images/fancy_nav_left.png",sizingMethod="scale")}
+.fancybox-ie6 #fancybox-right-ico{background:transparent;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'images/fancy_nav_right.png",sizingMethod="scale")}
+.fancybox-ie6 #fancybox-title-over{background:transparent;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'images/fancy_title_over.png",sizingMethod="scale");zoom:1}
+.fancybox-ie6 #fancybox-title-float-left{background:transparent;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'images/fancy_title_left.png",sizingMethod="scale")}
+.fancybox-ie6 #fancybox-title-float-main{background:transparent;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'images/fancy_title_main.png",sizingMethod="scale")}
+.fancybox-ie6 #fancybox-title-float-right{background:transparent;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'images/fancy_title_right.png",sizingMethod="scale")}
+#fancybox-loading.fancybox-ie6 div{background:transparent;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'images/fancy_loading.png",sizingMethod="scale")}
 /* IE6, IE7, IE8 */
-.fancybox-ie #fancybox-title-over{background-image:url('.self::$plugin_url.'fancybox/fancy_title_over.png)}
-.fancybox-ie #fancybox-bg-n{filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'fancybox/fancy_shadow_n.png",sizingMethod="scale")}
-.fancybox-ie #fancybox-bg-ne{filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'fancybox/fancy_shadow_ne.png",sizingMethod="scale")}
-.fancybox-ie #fancybox-bg-e{filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'fancybox/fancy_shadow_e.png",sizingMethod="scale")}
-.fancybox-ie #fancybox-bg-se{filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'fancybox/fancy_shadow_se.png",sizingMethod="scale")}
-.fancybox-ie #fancybox-bg-s{filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'fancybox/fancy_shadow_s.png",sizingMethod="scale")}
-.fancybox-ie #fancybox-bg-sw{filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'fancybox/fancy_shadow_sw.png",sizingMethod="scale")}
-.fancybox-ie #fancybox-bg-w{filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'fancybox/fancy_shadow_w.png",sizingMethod="scale")}
-.fancybox-ie #fancybox-bg-nw{filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'fancybox/fancy_shadow_nw.png",sizingMethod="scale")}';
+.fancybox-ie #fancybox-title-over{background-image:url('.self::$plugin_url.'images/fancy_title_over.png)}
+.fancybox-ie #fancybox-bg-n{filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'images/fancy_shadow_n.png",sizingMethod="scale")}
+.fancybox-ie #fancybox-bg-ne{filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'images/fancy_shadow_ne.png",sizingMethod="scale")}
+.fancybox-ie #fancybox-bg-e{filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'images/fancy_shadow_e.png",sizingMethod="scale")}
+.fancybox-ie #fancybox-bg-se{filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'images/fancy_shadow_se.png",sizingMethod="scale")}
+.fancybox-ie #fancybox-bg-s{filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'images/fancy_shadow_s.png",sizingMethod="scale")}
+.fancybox-ie #fancybox-bg-sw{filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'images/fancy_shadow_sw.png",sizingMethod="scale")}
+.fancybox-ie #fancybox-bg-w{filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'images/fancy_shadow_w.png",sizingMethod="scale")}
+.fancybox-ie #fancybox-bg-nw{filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="'.self::$plugin_url.'images/fancy_shadow_nw.png",sizingMethod="scale")}';
 
 			if ( isset($overlaySpotlight) && 'true' == $overlaySpotlight )
 				self::$inline_style_ie .= '
@@ -318,9 +322,9 @@ var easy_fancybox_auto=function(){setTimeout(function(){jQuery(\'a[class*="'.$tr
 		$min = ( defined('WP_DEBUG') && WP_DEBUG ) ? '' : '.min';
 
 		// ENQUEUE STYLE
-		wp_enqueue_style( 'fancybox', self::$plugin_url.'fancybox/jquery.fancybox'.$min.'.css', false, FANCYBOX_VERSION, 'screen' );
+		wp_enqueue_style( 'fancybox', self::$plugin_url.'css/jquery.fancybox.'.FANCYBOX_VERSION.$min.'.css', false, null, 'screen' );
 		if ( !empty(self::$inline_style_ie) ) {
-			wp_enqueue_style( 'fancybox-ie', self::$plugin_url.'fancybox/jquery.fancybox-ie'.$min.'.css', false, FANCYBOX_VERSION, 'screen' );
+			wp_enqueue_style( 'fancybox-ie', self::$plugin_url.'css/jquery.fancybox-ie.'.FANCYBOX_VERSION.$min.'.css', false, null, 'screen' );
 			$wp_styles->add_data( 'fancybox-ie', 'conditional', 'lt IE 9' );
 		}
 
@@ -329,7 +333,7 @@ var easy_fancybox_auto=function(){setTimeout(function(){jQuery(\'a[class*="'.$tr
 		$footer = get_option( 'fancybox_noFooter', false ) ? false : true;
 
 		// register main fancybox script
-		wp_enqueue_script( 'jquery-fancybox', self::$plugin_url.'fancybox/jquery.fancybox'.$min.'.js', $dep, FANCYBOX_VERSION, $footer );
+		wp_enqueue_script( 'jquery-fancybox', self::$plugin_url.'js/jquery.fancybox.'.FANCYBOX_VERSION.$min.'.js', $dep, null, $footer );
 
 		// jQuery Easing, which is ot needed if jQueryUI Core Effects are loaded
 		if ( !wp_script_is( 'jquery-effects-core', 'enqueued' ) ) {
@@ -346,18 +350,18 @@ var easy_fancybox_auto=function(){setTimeout(function(){jQuery(\'a[class*="'.$tr
 				$add_easing = true;
 			// enqueue easing?
 			if ( $add_easing ) {
-				wp_enqueue_script( 'jquery-easing', self::$plugin_url.'js/jquery.easing'.$min.'.js', $dep, EASING_VERSION, $footer );
+				wp_enqueue_script( 'jquery-easing', self::$plugin_url.'js/jquery.easing.'.EASING_VERSION.$min.'.js', $dep, null, $footer );
 			}
 		}
 
 		// jQuery Mousewheel, which is not needed if jQueryUI Mouse is loaded
 		if ( get_option( 'fancybox_mouseWheel', true ) && !wp_script_is( 'jquery-ui-mouse', 'enqueued' ) ) {
-			wp_enqueue_script( 'jquery-mousewheel', self::$plugin_url.'js/jquery.mousewheel'.$min.'.js', $dep, MOUSEWHEEL_VERSION, $footer );
+			wp_enqueue_script( 'jquery-mousewheel', self::$plugin_url.'js/jquery.mousewheel.'.MOUSEWHEEL_VERSION.$min.'.js', $dep, null, $footer );
 		}
 
 		// metadata in Miscellaneous settings?
 		if ( get_option( 'fancybox_metaData' ) ) {
-			wp_enqueue_script( 'jquery-metadata',self::$plugin_url.'js/jquery.metadata'.$min.'.js', $dep, METADATA_VERSION, $footer );
+			wp_enqueue_script( 'jquery-metadata',self::$plugin_url.'js/jquery.metadata.'.METADATA_VERSION.$min.'.js', $dep, null, $footer );
 		}
 
 		if ( get_option( 'fancybox_pre45Compat', false ) || !function_exists( 'wp_add_inline_script' ) ) {
@@ -396,7 +400,7 @@ var easy_fancybox_auto=function(){setTimeout(function(){jQuery(\'a[class*="'.$tr
 	// Hack to fix missing wmode in Youtube oEmbed code based on David C's code in the comments on
 	// http://www.mehigh.biz/wordpress/adding-wmode-transparent-to-wordpress-3-media-embeds.html
 	// without the wmode, videos will float over the light box no matter what z-index is set.
-	public static function add_video_wmode_opaque($html, $url, $attr) {
+	public static function add_video_wmode_opaque($html) {
 		if ( strpos($html, "<embed src=" ) !== false ) {
 			$html = str_replace('</param><embed', '</param><param name="wmode" value="opaque"></param><embed wmode="opaque"', $html);
 		} elseif ( strpos($html, 'youtube' ) !== false && strpos($html, 'wmode' ) == false ) {
@@ -426,12 +430,13 @@ var easy_fancybox_auto=function(){setTimeout(function(){jQuery(\'a[class*="'.$tr
 				delete_option('fancybox_PDFclassType');
 			}
 		}
+		// mark upgrade done
 		update_option('easy_fancybox_version', EASY_FANCYBOX_VERSION);
 	}
 
 	public static function load_defaults() {
 		if ( empty(self::$options) ) {
-			include 'easyfancybox-options.php';
+			include self::$plugin_dir . '/inc/easyfancybox-options.php';
 			self::$options = $efb_options;
 		}
 	}
@@ -450,7 +455,7 @@ var easy_fancybox_auto=function(){setTimeout(function(){jQuery(\'a[class*="'.$tr
 			if ( is_numeric($priority) ) self::$priority = $priority;
 
 			add_action( 'wp_enqueue_scripts', array(__CLASS__,'enqueue_scripts'), self::$priority );
-			add_filter( 'embed_oembed_html', array(__CLASS__,'add_video_wmode_opaque'), 10, 3 );
+			add_filter( 'embed_oembed_html', array(__CLASS__,'add_video_wmode_opaque'), 10 );
 		} elseif ( defined('WP_DEBUG') && WP_DEBUG ) {
 			error_log('No active Easy FancyBox media types set.');
 		}
@@ -464,6 +469,7 @@ var easy_fancybox_auto=function(){setTimeout(function(){jQuery(\'a[class*="'.$tr
 		// VARS
 		self::$plugin_url = plugins_url( '/', $file );
 		self::$plugin_basename = plugin_basename( $file );
+		self::$plugin_dir = dirname( $file );
 
 		add_action( 'init', array(__CLASS__, 'maybe_upgrade') );
 		add_action( 'init', array(__CLASS__, 'load_defaults') );

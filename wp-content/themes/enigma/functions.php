@@ -28,6 +28,7 @@
 	$wl_theme_options=array(
 			//Logo and Fevicon header
 			'title_position'=>'',
+			'search_box'=>'',
 			'upload__header_image'=>'',
 			'upload_image_logo'=>'',
 			'height'=>'55',
@@ -61,6 +62,8 @@
 			'slide_btn_text_3' => __('Read More', 'enigma' ),
 			'slide_btn_link_3' => '#',
 			'slider_anim'=>'',
+			'animate_type_title'=>'',
+			'animate_type_desc'=>'',
 			// Footer Call-Out
 			'fc_home'=>'1',			
 			'fc_title' => __('Lorem Ipsum is simply dummy text of the printing and typesetting industry. ', 'enigma' ),
@@ -315,7 +318,7 @@ endif;
     echo '<ul class="breadcrumb">';
     global $post;
     $homeLink = home_url();
-    echo '<li><a href="' . esc_attr($homeLink) . '">' . esc_html($home) . '</a></li>' . esc_html($delimiter) . ' ';
+    echo '<li><a href="' . $homeLink . '">' . $home . '</a></li>' . $delimiter . ' ';
     if (is_category()) {
         global $wp_query;
         $cat_obj = $wp_query->get_queried_object();
@@ -323,23 +326,23 @@ endif;
         $thisCat = get_category($thisCat);
         $parentCat = get_category($thisCat->parent);
         if ($thisCat->parent != 0)
-            echo(esc_html(get_category_parents($parentCat, TRUE, ' ' . $delimiter . ' ')));
-        echo esc_html($before) . ' _e("Archive by category","enigma") "' . single_cat_title('', false) . '"' . esc_html($after);
+            echo(get_category_parents($parentCat, TRUE, ' ' . $delimiter . ' '));
+        echo $before . ' _e("Archive by category","enigma") "' . single_cat_title('', false) . '"' . $after;
     } elseif (is_day()) {
-        echo '<li><a href="' . esc_url(get_year_link(get_the_time('Y'))) . '">' . esc_html(get_the_time('Y')) . '</a></li> ' . esc_html($delimiter) . ' ';
-        echo '<li><a href="' . esc_url(get_month_link(get_the_time('Y'), get_the_time('m'))) . '">' . esc_html(get_the_time('F')) . '</a></li> ' . esc_html($delimiter) . ' ';
-        echo esc_html($before) . esc_html(get_the_time('d')) . esc_html($after);
+        echo '<li><a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a></li> ' . $delimiter . ' ';
+        echo '<li><a href="' . get_month_link(get_the_time('Y'), get_the_time('m')) . '">' . get_the_time('F') . '</a></li> ' . $delimiter . ' ';
+        echo $before . get_the_time('d') . $after;
     } elseif (is_month()) {
-        echo '<li><a href="' . esc_url(get_year_link(get_the_time('Y'))) . '">' . esc_html(get_the_time('Y')) . '</a></li> ' . esc_html($delimiter) . ' ';
-        echo esc_html($before) . esc_html(get_the_time('F')) . esc_html($after);
+        echo '<li><a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a></li> ' . $delimiter . ' ';
+        echo $before . get_the_time('F') . $after;
     } elseif (is_year()) {
-        echo esc_html($before) . esc_html(get_the_time('Y')) . esc_html($after);
+        echo $before . get_the_time('Y') . $after;
     } elseif (is_single() && !is_attachment()) {
         if (get_post_type() != 'post') {
             $post_type = get_post_type_object(get_post_type());
             $slug = $post_type->rewrite;
-            echo '<li><a href="' . esc_attr($homeLink) . '/' . esc_attr($slug['slug']) . '/">' . esc_html($post_type->labels->singular_name ). '</a></li> ' . esc_html($delimiter) . ' ';
-            echo esc_html($before) . get_the_title() . esc_html($after);
+            echo '<li><a href="' . $homeLink . '/' . $slug['slug'] . '/">' . $post_type->labels->singular_name . '</a></li> ' . $delimiter . ' ';
+            echo $before . get_the_title() . $after;
         } else {
             $cat = get_the_category();
             $cat = $cat[0];
@@ -349,14 +352,14 @@ endif;
 		
     } elseif (!is_single() && !is_page() && get_post_type() != 'post') {
         $post_type = get_post_type_object(get_post_type());
-        echo esc_html($before) . esc_html($post_type->labels->singular_name) . esc_html($after);
+        echo $before . $post_type->labels->singular_name . $after;
     } elseif (is_attachment()) {
         $parent = get_post($post->post_parent);
         $cat = get_the_category($parent->ID);
         //$cat = $cat[0];
        // echo get_category_parents($cat, TRUE, ' ' . $delimiter . ' ');
-        echo '<li><a href="' . esc_url(get_permalink($parent)) . '">' . esc_html($parent->post_title) . '</a></li> ' . esc_html($delimiter) . ' ';
-        echo esc_html($before) . get_the_title() . esc_html($after);
+        echo '<li><a href="' . get_permalink($parent) . '">' . $parent->post_title . '</a></li> ' . $delimiter . ' ';
+        echo $before . get_the_title() . $after;
     } elseif (is_page() && !$post->post_parent) {
         echo $before . get_the_title() . $after;
     } elseif (is_page() && $post->post_parent) {
@@ -364,13 +367,13 @@ endif;
         $breadcrumbs = array();
         while ($parent_id) {
             $page = get_page($parent_id);
-            $breadcrumbs[] = '<li><a href="' . esc_url(get_permalink($page->ID)) . '">' . get_the_title($page->ID) . '</a></li>';
+            $breadcrumbs[] = '<li><a href="' . get_permalink($page->ID) . '">' . get_the_title($page->ID) . '</a></li>';
             $parent_id = $page->post_parent;
         }
         $breadcrumbs = array_reverse($breadcrumbs);
         foreach ($breadcrumbs as $crumb)
-            echo esc_html($crumb) . ' ' . esc_html($delimiter) . ' ';
-        echo esc_html($before) . get_the_title() . esc_html($after);
+            echo $crumb . ' ' . $delimiter . ' ';
+        echo $before . get_the_title() . $after;
     } elseif (is_search()) {
         echo $before . _e("Search results for","enigma")  . get_search_query() . '"' . $after;
 
@@ -383,6 +386,7 @@ endif;
     } elseif (is_404()) {
         echo $before . _e("Error 404","enigma") . $after;
     }
+    
     echo '</ul>';
 	}
 	
@@ -505,112 +509,65 @@ function enigma_custom_admin_notice() {
 	$currentversion = str_replace('.','',(esc_html( $wl_th_info->get('Version') )));
 	$isitdismissed = 'enigma_notice_dismissed'.$currentversion;
 	if ( !get_user_meta( get_current_user_id() , $isitdismissed ) ) { ?>
-		<!---our-product-features--->
-		 
-	
-	<div class="our-product-features">	
-	
-		<!--<div class="col-md-2">
-			<ul class="nav nav-tabs features-tabs">
-				<li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-				<li><a data-toggle="tab" href="#wb_theme">Theme </a></li>
-				<li><a data-toggle="tab" href="#wb_plugin">Plugin </a></li>
-				<li><a data-toggle="tab" href="#menu3">Rating Us</a></li>
-				<li><a data-toggle="tab" href="#offer">Offers</a></li>
-			</ul>
-		</div>-->
-		
-		<div class="col-md-12">
-		<a class="dismiss" href="?-notice-dismissed<?php echo esc_attr($currentversion);?>"><?php esc_html_e('Click here to dismiss This Ad.','enigma');?></strong></a>
-		  <div class="tab-content features-content">
-			<div id="home" class="tab-pane fade in active">
-				
-				
-				<div class="oure-details">
-				  <h3>  <span> Enigma Premium / Advanced Premium / Parallax Premium  </span></h3>
-				  <div class="col-md-12 main-div"> 
-					<div class="col-md-4 theme-img">
-						<div class="wb_products"> 
-							<div class="wb_products-inner"> 
-								<a href="https://weblizar.com/themes/enigma-premium/" target="_blank"> 
-								<img src="<?php echo esc_url(get_template_directory_uri()); ?>/images/Enigma1.jpg" class="img-responsive">  
-								</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-8">
-					<div class="col-md-6">
-						<ul class="enigma-feature">
-							<li><i class="fa fa-check"></i> 03 Home Page</li>
-							<li><i class="fa fa-check"></i> Parallax Design</li>
-							<li><i class="fa fa-check"></i> Theme Option Panel</li>
-							<li><i class="fa fa-check"></i> 2 Service Page Template</li>
-							<li><i class="fa fa-check"></i> Custom Shortcodes</li>
-							<li><i class="fa fa-check"></i> 6 Portfolio Layout</li>
-						</ul>
-						<h4 class="getpro"> <a href="https://weblizar.com/themes/enigma-premium/" target="_blank"> Get Enigma Premium </a>							
-						</h4> 
-					</div>
-					<div class="col-md-6">
-						<ul class="enigma-feature">
-							<li><i class="fa fa-check"></i> Unlimited Color Skins</li>
-							<li><i class="fa fa-check"></i> Mega Menu Support</li>
-							
-							<li><i class="fa fa-check"></i> 10 Page Layout</li>
-							<li><i class="fa fa-check"></i> 6 Blog Layout</li>
-							<li><i class="fa fa-check"></i> Multilingual</li><li>
-							<i class="fa fa-check"></i> Complete Documentation
-						</li>
-						</ul>
-						
-					</div>				
-						
-					</div>
-						
-					</div>
-					
-				</div>
-				<div class="oure-details">
-				<!--<h3>  <span> Review and Rating  </span></h3>-->
-				
+
 				  <!-- rating -->
-				  <div class="col-md-12 main-div">
-				  <div class="notice-box notice-success is-dismissible flat_responsive_notice" data-dismissible="disable-done-notice-forever">
-						<div>
-						<p>	
-							<?php  esc_html_e('Thank you for using the free version of ','enigma'); ?>
-							<?php echo esc_html( $wl_th_info->get('Name') );?> - 
-							<?php echo esc_html( $wl_th_info->get('Version') );
-							 ?>
-							<?php esc_html_e('Please give your reviews and ratings on ','enigma'); echo esc_attr($wl_th_info->get('Name')); esc_html_e(' theme. Your ratings will help us to improve our themes.', 'enigma'); ?>
-							<script type="text/javascript">alert(<?php echo esc_attr($isitdismissed)?>);</script>
-							<?php if($wl_th_info->get('Name')=="Enigma") { ?>
-							<div class="">
-							<a class="rateme" href="<?php echo esc_url('https://wordpress.org/support/theme/enigma/reviews/?filter=5');  ?>" target="_blank" aria-label="Dismiss the welcome panel"> <?php } elseif($wl_th_info->get('Name')=="Greenigma") { ?>
-							<a class="rateme" href="<?php echo esc_url('https://wordpress.org/support/theme/greenigma/reviews/?filter=5');  ?>" target="_blank" aria-label="Dismiss the welcome panel"> <?php } elseif($wl_th_info->get('Name')=="Inferno") { ?>
-							<a class="rateme" href="<?php echo esc_url('https://wordpress.org/support/theme/inferno/reviews/?filter=5');  ?>" target="_blank" aria-label="Dismiss the welcome panel">		
-							<?php } else { ?>
-							<a class="rateme" href="<?php echo esc_url('https://wordpress.org/support/theme/cista/reviews/?filter=5');  ?>" target="_blank" aria-label="Dismiss the welcome panel">	
-							<?php } ?>
-								<span class="dashicons dashicons-star-filled"></span>
-								<span class="dashicons dashicons-star-filled"></span>
-								<span class="dashicons dashicons-star-filled"></span>
-								<span class="dashicons dashicons-star-filled"></span>
-								<span class="dashicons dashicons-star-filled"></span>
-							</a>
-							</div>
-						</p>
-						</div>
-				</div>
-				</div>
-				  <!-- rating -->
-				</div>
-			</div>
-		  </div>
+	<div class="col-md-12 main-div">
+		<div class="notice-box notice-success is-dismissible flat_responsive_notice" data-dismissible="disable-done-notice-forever">		
+			<p>	
+				<?php  esc_html_e('Thank you for using the free version of ','enigma'); ?>
+				<?php echo esc_html( $wl_th_info->get('Name') );?> - 
+				<?php echo esc_html( $wl_th_info->get('Version') ); ?>
+				<?php esc_html_e('Please give your reviews and ratings on ','enigma'); echo esc_attr($wl_th_info->get('Name')); esc_html_e(' theme. Your ratings will help us to improve our themes.', 'enigma'); ?>
+				<script type="text/javascript">alert(<?php echo esc_attr($isitdismissed)?>);</script>
+				<?php if($wl_th_info->get('Name')=="Enigma") { ?>
+				<a class="rateme" href="<?php echo esc_url('https://wordpress.org/support/theme/enigma/reviews/?filter=5');  ?>" target="_blank" aria-label="Dismiss the welcome panel"> <?php } elseif($wl_th_info->get('Name')=="Greenigma") { ?>
+				<a class="rateme" href="<?php echo esc_url('https://wordpress.org/support/theme/greenigma/reviews/?filter=5');  ?>" target="_blank" aria-label="Dismiss the welcome panel"> <?php } elseif($wl_th_info->get('Name')=="Inferno") { ?>
+				<a class="rateme" href="<?php echo esc_url('https://wordpress.org/support/theme/inferno/reviews/?filter=5');  ?>" target="_blank" aria-label="Dismiss the welcome panel">		
+				<?php } else { ?>
+				<a class="rateme" href="<?php echo esc_url('https://wordpress.org/support/theme/cista/reviews/?filter=5');  ?>" target="_blank" aria-label="Dismiss the welcome panel">	
+				<?php } ?>
+				<span class="dashicons dashicons-star-filled"></span>
+				<span class="dashicons dashicons-star-filled"></span>
+				<span class="dashicons dashicons-star-filled"></span>
+				<span class="dashicons dashicons-star-filled"></span>
+				<span class="dashicons dashicons-star-filled"></span>
+				</a>
+			</p>
+						
 		</div>
-	</div>
-			
 		
+		<div class="wb_plugin_feature">
+			<div class="wb_plugin_feature_banner default_pattern pattern_ ">
+			<div class="wb-col-md-6 wb-col-sm-12 wb-text-center institute_banner_img">
+			<h1>  Enigma Premium </h1>
+				<img class="wp-img-responsive" src="<?php echo get_template_directory_uri(); ?>/images/EP.png" alt="img">
+			</div>
+				<div class="wb-col-md-6 wb-col-sm-12 wb_banner_featurs-list">
+					<span><h1> Features</h1></span>
+					<ul>    <li> Selling WordPress Theme </li> 
+						<li> Parallax Design Included</li>
+						<li> Theme Option Panel </li>
+						<li> Unlimited Color Skins </li>
+						<li> Mega Menu Support </li>					
+						<li> 6 Portfolio Layout </li>
+						<li> 6 Blog Layout </li>
+						<li> Multilingual </li>
+						<li> Woocommerce Support </li>
+						<li> All Leading Page Builder Support</li>
+						<li> Inbuilt Shortcodes </li>
+						<li> SEO Friendly </li>
+						<li> Well Documented Code</li>
+						<li> 24*7 Live Support </li>
+					</ul>
+				<div class="wp_btn-grup">
+					<a class="wb_button-primary "  href="https://weblizar.com/themes/enigma-premium/" target="_blank">View Demo</a>
+					<a class="wb_button-primary" href="https://weblizar.com/themes/enigma-premium/" target="_blank">Buy Now $39</a>
+				</div>
+				<div class="plugin_vrsion"> <a class="dismiss" href="?-notice-dismissed<?php echo esc_attr($currentversion);?>"><span> <?php esc_html_e("Dismiss","enigma");?> </a> </span> </div>
+				</div>
+		</div>	
+	</div>		
+</div>
 <?php
 	}
  }

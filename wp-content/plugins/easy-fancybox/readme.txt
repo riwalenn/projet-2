@@ -3,8 +3,8 @@ Contributors: RavanH
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ravanhagen%40gmail%2ecom&item_name=Easy%20FancyBox
 Tags: fancybox, lightbox, gallery, image, photo, video, flash, overlay, youtube, vimeo, dailymotion, pdf, svg, iframe, swf, jquery, webp
 Requires at least: 3.3
-Tested up to: 4.9
-Stable tag: 1.8.5
+Tested up to: 5.1
+Stable tag: 1.8.13
 
 Easily enable the FancyBox jQuery extension on just about all media links. Multi-Site compatible. Supports iFrame and Flash movies.
 
@@ -13,6 +13,10 @@ Easily enable the FancyBox jQuery extension on just about all media links. Multi
 Easy FancyBox plugin for WordPress websites gives you a flexible and aesthetic light box solution for just about all media links on your website. Easy FancyBox uses an updated version of the traditional FancyBox jQuery extension and is WP 3+ Multi-Site compatible. After activation you can find a new section **FancyBox** on your **Settings > Media** admin page where you can manage the media light box options.
 
 After activation, all links to **JPG, GIF and PNG images** are automatically opened in the [FancyBox](http://fancybox.net/) Mac/Gnome-style lightbox that floats over the web page.
+
+**GDPR / EU Privacy**
+
+This plugin does not collect any data and does not set any browser cookies. However, the PRO version offers an option to disable the automatic popup after the first visit, which needs a browser cookie. This cookie stores the visitors first website visit timestamp and path on the client side. It is not shared nor is any data stored server side or elsewhere.
 
 **FEATURES**
 
@@ -72,6 +76,35 @@ For these additional features, you need to install the **[Pro extension](https:/
 If you're happy with this plugin as it is, please consider writing a quick [rating](https://wordpress.org/support/plugin/easy-fancybox/reviews/#new-post) or helping other users out on the [support forum](https://wordpress.org/support/plugin/easy-fancybox).
 
 If you wish to help build this plugin, you're very welcome to [translate Easy FancyBox into your language](https://translate.wordpress.org/projects/wp-plugins/easy-fancybox/) or contribute bug reports, feature suggestions and/or code on [Github](https://github.com/RavanH/easy-fancybox/).
+
+**KNOWN ISSUES**
+
+= General =
+
+- **Outbound links or Downloads tracking** in some of the stats plugins can interfere with FancyBox. Disable such option or exclude links manually with a class (see instructions for SlimStat below)
+- Most plugins and themes that already include a light box script. Continue reading to see if you are using one of the know ones or follow the troubleshooting steps to find out what is conflicting on your site.
+- Any theme that is missing the obligatory `<?php wp_footer(); ?>` call in the footer.php template.
+- When showing an iframe as inline content in FancyBox -- not advised, use fancybox-iframe instead! -- the iframe will become blank after opening and closing it. The solution is to link directly to the iframe source and use `class="fancybox-iframe"` instead.
+- Embedded flash content that has no wmode or wmode 'window', is displayed above the overlay and other javascript rendered content like dropdown menus. WordPress does NOT check for missing wmode in oEmbed generated embed code. Since version 1.3.4.5, the missing wmode is added by this plugin for WP (auto-)embeds but not for other user-embedded content. Please make sure you set the wmode parameter to 'opaque' (best performance) or 'transparent' (only when you need transparency) for your embedded content.
+
+= Plugin conflicts =
+
+- **jQuery Updater** moves jQuery to version 2+ which is incompatible.
+- **All in One SEO Pack** and **Analytics for WordPress** with outbound link tracking enabled. Disable that feature.
+- **WP Slimstat** with Track Outbound Clicks enabled, will break the light box effect on some browsers. Adding `fancybox` (or any of the other classes like `fancybox-youtube,fancybox-iframe,fancybox-inline` depending on which media should be displayed in FancyBox) to the Do Not Track field is reported to solve the issue. Slimstat also might interfere with the YouTube url conversion. When clicking a Youtube link, the movie opens in an overlay as it is supposed to but immediately after that, the complete page gets redirected to the original YouTube page. Adding a `class="noslimstat"` to the link is reported to work around the issue.
+- **Google Analytics for WordPress** converts links like `href="#anyID"` to `href="http://yoursite.url/page/#anyID"`, disabling inline content shown in FancyBox.
+- Both the **uBillBoard** and **Camera slideshow** have their own easing script hard-coded which conflicts with the one in Easy FancyBox. The only way around the conflict is to set both the Easing In and Easing Out options on your Settings > Media page to **Swing**.
+- **Wordpress Firewall 2** blocks access to image files needed for proper display of the FancyBox overlay in older IE and other non-css3 browsers.
+- **WordPress Amazon Associate**: A script provided by Amazon and the FancyBox script are incompatible. Disabling _Product Preview_ in the **WP - Amazon > Settings** page should work around the issue.
+- **WP Supersized** uses the Animate Enhanced jQuery extension which causes a conflict with the Easing extension used by FancyBox resulting in a 0px sized lightbox frame and/or some kind of positioning issue with auto-centering.
+
+= Theme conflicts =
+
+- Older versions of **Elegant Themes** have FancyBox integrated in a hard-coded way, making them incompatible with Easy FancyBox. In the latest versions of these themes, there is an option to disable the included FancyBox. Use this option to make your theme compatible with Easy FancyBox :)
+- The **Mystique** theme has two options called "Lightbox" and "Optimize website for faster loading" that will break Easy FancyBox. Disable both in Mystique's options > Advanced.
+- **Imbalance** and other themes that uses the Photo Galleria jQuery extension: turn of the JSGallery option.
+- Themes like **Envisioned**, **Chameleon** and many others have FancyBox baked in. There is no solution other than stripping the theme of all FancyBox related code or better: disable the plugin and use the theme provided version...
+- Themes based on the **Thesis** framework might see issues in IE 8, for which [a hack has been proposed](https://voidzonemedia.com/solutions/thesis-ie8-remove-ie7-emulation/)
 
 
 == Installation ==
@@ -280,9 +313,9 @@ To create Youtube thumbnail galleries, install https://wordpress.org/plugins/you
 
 = Can I display web pages or HTML files in a FancyBox overlay? =
 
-Yes. First, enable the iFrame option on Settings > Media. Then, in your post or page content create a link with either `class="fancybox-iframe"` or `class="fancybox iframe"` (notice the space instead of the hyphen) to any web page or .htm(l) file in your content.
+Yes. First, enable the iFrame option on Settings > Media. Then, in your post or page content create a link to any web page or .htm(l) file in your content. Then switch to the Text tab in the Classic Editor or to Edit as HTML (under More options in the block menu) in Gutenberg, find the link `<a ... >` tag and give it a `class="fancybox-iframe"` attribute.
 
-NOTE: The difference between these two classes ('-' or space) is in size of the overlay window. Try it out and use the one that works best for you :)
+Note: Not all external web pages are allowed to be embedded in an iframe and may be blocked by a server response header or script. The result will be either an empty/blank light box or the target page "breaking out" of the light box and loading in the main browser tab.
 
 
 = Can I show PDF files in a FancyBox overlay? =
@@ -303,7 +336,7 @@ If you don't have *Auto-detect* checked under **SWF** on Settings > Media admin 
 
 FancyBox tries to detect the size of the content automatically but if it can not find a size, it will default to the settings for that particular content type as set on the Settings > Media page.
 
-The **[Pro extension](https://premium.status301.net/downloads/easy-fancybox-pro/)** provides an extra option to allow you to manually override this by defining the width and height wrapped in curly braces in the class attribute of the link itself. Make sure the option "Include the Metadata jQuery extension script..." under FancyBox | Links on Settings > Media is enabled.
+The **[Pro extension](https://premium.status301.net/downloads/easy-fancybox-pro/)** provides an extra option to allow you to manually override this by defining the width and height wrapped in curly braces in the class attribute of the link itself. Make sure the option "Include the Metadata jQuery extension script..." under FancyBox | Miscellaneous | Advanced on Settings > Media is enabled.
 
 For example, a Flash movie with different size:
 
@@ -421,48 +454,14 @@ Note: It completely depends on the AJAX script where this code snippet should be
 Yes. Designed to work with **Network Activate** and does not require manual activation on each site in your network.
 
 
-== Known Issues ==
-
-= General =
-
-- **Outbound links or Downloads tracking** in some of the stats plugins can interfere with FancyBox. Disable such option or exclude links manually with a class (see instructions for SlimStat below)
-- Most plugins and themes that already include a light box script. Continue reading to see if you are using one of the know ones or follow the troubleshooting steps to find out what is conflicting on your site.
-- Any theme that is missing the obligatory `<?php wp_footer(); ?>` call in the footer.php template.
-
-= Plugin conflicts =
-
-- **jQuery Updater** moves jQuery to version 2+ which is incompatible.
-- **All in One SEO Pack** and **Analytics for WordPress** with outbound link tracking enabled. Disable that feature.
-- **WP Slimstat** with Track Outbound Clicks enabled, will break the light box effect on some browsers. Adding `fancybox` (or any of the other classes like `fancybox-youtube,fancybox-iframe,fancybox-inline` depending on which media should be displayed in FancyBox) to the Do Not Track field is reported to solve the issue. Slimstat also might interfere with the YouTube url conversion. When clicking a Youtube link, the movie opens in an overlay as it is supposed to but immediately after that, the complete page gets redirected to the original YouTube page. Adding a `class="noslimstat"` to the link is reported to work around the issue.
-- **Google Analytics for WordPress** converts links like `href="#anyID"` to `href="http://yoursite.url/page/#anyID"`, disabling inline content shown in FancyBox.
-- Both the **uBillBoard** and **Camera slideshow** have their own easing script hard-coded which conflicts with the one in Easy FancyBox. The only way around the conflict is to set both the Easing In and Easing Out options on your Settings > Media page to **Swing**.
-- **Wordpress Firewall 2** blocks access to image files needed for proper display of the FancyBox overlay in older IE and other non-css3 browsers.
-- **WordPress Amazon Associate**: A script provided by Amazon and the FancyBox script are incompatible. Disabling _Product Preview_ in the **WP - Amazon > Settings** page should work around the issue.
-- **WP Supersized** uses the Animate Enhanced jQuery extension which causes a conflict with the Easing extension used by FancyBox resulting in a 0px sized lightbox frame and/or some kind of positioning issue with auto-centering.
-
-= Theme conflicts =
-
-- Older versions of **Elegant Themes** have FancyBox integrated in a hard-coded way, making them incompatible with Easy FancyBox. In the latest versions of these themes, there is an option to disable the included FancyBox. Use this option to make your theme compatible with Easy FancyBox :)
-- The **Mystique** theme has two options called "Lightbox" and "Optimize website for faster loading" that will break Easy FancyBox. Disable both in Mystique's options > Advanced.
-- **Imbalance** and other themes that uses the Photo Galleria jQuery extension: turn of the JSGallery option.
-- Themes like **Envisioned**, **Chameleon** and many others have FancyBox baked in. There is no solution other than stripping the theme of all FancyBox related code or better: disable the plugin and use the theme provided version...
-- Themes based on the **Thesis** framework might see issues in IE 8, for which [a hack has been proposed](https://voidzonemedia.com/solutions/thesis-ie8-remove-ie7-emulation/)
-
-
-= Other =
-
-- When showing an iframe as inline content in FancyBox -- not advised, use fancybox-iframe instead! -- the iframe will become blank after opening and closing it. The solution is to link directly to the iframe source and use `class="fancybox-iframe"` instead.
-- Embedded flash content that has no wmode or wmode 'window', is displayed above the overlay and other javascript rendered content like dropdown menus. WordPress does NOT check for missing wmode in oEmbed generated embed code. Since version 1.3.4.5, the missing wmode is added by this plugin for WP (auto-)embeds but not for other user-embedded content. Please make sure you set the wmode parameter to 'opaque' (best performance) or 'transparent' (only when you need transparency) for your embedded content.
-
-
-== Trouble Shooting ==
+= TROUBLE SHOOTING =
 
 If, after activation, your images do not open in a FancyBox overlay, there are several possible reasons. Some are easily solved, others are more difficult. Follow these basic checks to make sure everything is in place:
 
 = Basic checks =
 
-1. Make sure that thumbnail images are linked *directly* to their larger counterpart, not to a dynamic WordPress page that includes the larger image. This means when you insert an image in your posts or pages, you need to select `File URL` at the **Link** option instead of `Page URL`. You'll have to manually edit your old posts if you have always inserted images with `Page URL` before, FancyBox cannot do this for you.
-1. Make sure you have all the needed media and their *Auto-detect* options activated on your **Settings > Media** admin page. If you are using images in other formats that JPG, GIF or PNG, you need to add the extensions to the Auto-detect field for Images. Please note: The image file names must actaully *end* with that extension! This means that if you have an image file that (for example) has *no* extension (does not end with .jpg or any other) even if is in JPEG compressed format, the FancyBox will not be able to detect is as an image. You will need to manually give those links the class `fancybox` to trigger FancyBox.
+1. Make sure that thumbnail images are linked *directly* to their larger counterpart, not to a dynamic WordPress page that includes the larger image. This means when you insert an image in your posts or pages, you need to select **Media File** at the Link option instead of Page URL. You'll have to manually edit your old posts if you have always inserted images with `Page URL` before, FancyBox cannot do this for you.
+1. Make sure you have all the needed media and their *Auto-detect* options activated on your **Settings > Media** admin page. If you are using images in other formats that JPG, GIF or PNG, you need to add the extensions to the Auto-detect field for Images. Please note: The image file names must actaully _end_ with that extension! This means that if you have an image file that (for example) has _no_ extension (does not end with .jpg or any other) even if is in JPEG compressed format, the FancyBox will not be able to detect is as an image. You will need to manually give those links the class `fancybox image` to trigger FancyBox.
 
 = General trouble shooting steps =
 
@@ -495,11 +494,38 @@ If you still do not get to see your images in FancyBox, ask on the [Easy FancyBo
 
 == Upgrade Notice ==
 
-= 1.8.5 =
-Bugfix release: prevent Inline content title.
+= 1.8.13 =
+Prepare Visual Composer Masonry Grid Gallery compatibility option
 
 
 == Changelog ==
+
+= 1.8.13 =
+* Fix version constant issue
+* Prepare Visual Composer Masonry Grid Gallery compatibility option
+
+= 1.8.11 =
+* Fix Vimeo player direct links breaking
+
+= 1.8.10 =
+* Force default autoselector for galleries
+
+= 1.8.9 =
+* Prevent gallery next/prev links to show dud target
+* FIX: allow youtube url parameters before v=
+
+= 1.8.7 =
+* Autoplay Youtube/Vimeo/Dailymotion
+* FIX: Exclude Vimeo user pages from autodetect
+* FIX: Exclude facebook/twitter share link
+* FIX: PDF embed tag
+
+= 1.8.6 =
+* Gutenberg file block download button compatibility
+* Gutenberg gallery block compatibility
+* FIX: Missing argument in easyFancyBox::add_video_wmode_opaque()
+* Remove version URL parameters
+* FIX: jQuery 3+ e.indexOf is not a function
 
 = 1.8.5 =
 * FIX: prevent Inline content title

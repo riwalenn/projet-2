@@ -34,7 +34,7 @@ Class MetaSlider_Tour {
 		wp_enqueue_script('metaslider-shepherd-js', METASLIDER_ADMIN_URL . 'assets/tether-shepherd/shepherd.min.js', array('metaslider-tether-js'), METASLIDER_VERSION, true);
 		wp_enqueue_style('metaslider-shepherd-css', METASLIDER_ADMIN_URL . 'assets/tether-shepherd/shepherd-theme-arrows.css', false, METASLIDER_VERSION);
 
-		wp_register_script('metaslider-tour-js', METASLIDER_ADMIN_URL . 'assets/js/tour.js', array('metaslider-tether-js'), METASLIDER_VERSION, true);
+		wp_register_script('metaslider-tour-js', METASLIDER_ADMIN_URL . 'assets/js/tour-' . sanitize_title(METASLIDER_VERSION) . '.js', array('metaslider-tether-js'), METASLIDER_VERSION, true);
 		wp_localize_script('metaslider-tour-js', 'metaslider_tour', array(
 			'no_slideshows' => array(
 				'show' => ! (bool) count($this->plugin->all_meta_sliders()),
@@ -56,7 +56,7 @@ Class MetaSlider_Tour {
 				),
 				'step2a' => array(
 					'title' => __("Select Slide Type", "ml-slider"),
-					'message' => metaslider_pro_is_active() ? 'Thanks for activating the Add-on Pack! Premium users can choose from any of these slide types' : __("Premium users that have the Add-on Pack activated can access additional slide types!", "ml-slider")
+					'message' => metaslider_pro_is_active() ? 'Thanks for activating the Add-on Pack! Premium users can choose from any of these slide types' : __("Access the various slide types from here.", "ml-slider")
 				),
 				'step2b' => array(
 					'title' => __("Select Media", "ml-slider"),

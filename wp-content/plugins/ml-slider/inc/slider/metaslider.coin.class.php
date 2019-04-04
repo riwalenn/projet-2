@@ -33,7 +33,8 @@ class MetaCoinSlider extends MetaSlider {
             'navigation' => 'showNavigationButtons',
             'links' => 'showNavigationPrevNext',
             'prevText' => 'prevText',
-            'nextText' => 'nextText'
+            'nextText' => 'nextText',
+            'autoPlay' => 'autoplay'
         );
 
         if ( isset( $params[$param] ) ) {
@@ -57,6 +58,6 @@ class MetaCoinSlider extends MetaSlider {
 
         $return_value .= "\n        </div>";
 
-        return apply_filters( 'metaslider_coin_slider_get_html', $return_value, $this->id, $this->settings ); $retVal;
+        return apply_filters( 'metaslider_coin_slider_get_html', $return_value, $this->id, $this->settings );
     }
 }

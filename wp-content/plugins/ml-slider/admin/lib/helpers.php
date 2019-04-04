@@ -142,6 +142,28 @@ function metaslider_viewing_trashed_slides($slider_id) {
 }
 
 /**
+ * Returns the current pro version registered by WP
+ *
+ * @return string
+ */
+function metaslider_pro_version() {
+    $file = trailingslashit(WP_PLUGIN_DIR) . metaslider_plugin_is_installed('ml-slider-pro');
+    $data = get_file_data($file, array('Version' => 'Version'));
+    return $data['Version'];
+}
+
+/**
+ * Returns the current version registered by WP
+ *
+ * @return string
+ */
+function metaslider_version() {
+	$file = trailingslashit(WP_PLUGIN_DIR) . metaslider_plugin_is_installed('ml-slider');
+	$data = get_file_data($file, array('Version' => 'Version'));
+	return $data['Version'];
+}
+
+/**
  * Returns whether we are looking at a trashed slide
  *
  * @param object $slide a slide object
@@ -179,3 +201,5 @@ function metaslider_optimize_url($url, $text, $html = null, $class = '') {
 	    return sprintf('<a class="%1$s" href="%2$s">%3$s</a>', esc_attr($class), esc_attr($url), htmlspecialchars($text));
     }
 }
+
+ 

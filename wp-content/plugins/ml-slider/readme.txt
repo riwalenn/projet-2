@@ -3,8 +3,9 @@ Contributors: matchalabs, DavidAnderson, dnutbourne, kbat82
 Tags: wordpress slideshow,seo,slideshow,slider,widget,wordpress slider,image slider,flexslider,flex slider,nivoslider,nivo slider,responsive,responsive slides,coinslider,coin slider,slideshow,carousel,responsive slider,vertical slides
 Donate link: https://david.dw-perspective.org.uk/donate
 Requires at least: 3.5
-Stable tag: 3.8.1
-Tested up to: 5.0
+Stable tag: 3.12.1
+Requires PHP: 5.2
+Tested up to: 5.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,54 +17,65 @@ Create powerful, SEO-optimized slideshows in minutes with the world's #1 slider 
 
 With WordPress’ most popular slider plugin, enhancing your blog or website couldn’t be easier: simply select images from your WordPress Media Library, drag and drop them into place, and then set the slide captions, links and SEO fields all from one page.
 
+** NEW: Easily search and download free images to your slideshow from Unsplash.com**
+
 Choose one of 4 different slideshow types, and use our provided short-code or template to embed the slideshows.
+
+Apply one of our professional slidehow designs to really make your website stand out.
+
+**Gutenberg compatible**
 
 **Included slideshow types:**
 
 * **Flex Slider 2** - responsive, 2 transition effects, carousel mode
-* **Nivo Slider** - responsive, 16 transition effects, 4 themes
+* **Nivo Slider** - responsive, 16 transition effects
 * **Responsive Slides** - responsive & incredibly light weight
 * **Coin Slider** - 4 transition effects
 
 **Features**
 
 * Simple, easy to use interface - perfect for individual users, developers & clients!
+* Access to millions of free photos via Unsplash.com
 * Create Responsive, SEO-optimized slideshows in seconds
-* Unrestricted support for Image slides (supports caption, link, title text, alt text)
+* Unrestricted support for image slides (supports caption, link, title text, alt text)
 * Full width slideshow support
 * Drag and drop slide reordering
-* Admin preview
 * Intelligent image cropping
 * Set image crop position
+* Themes - includes 11 free professional slideshow themes
 * Built in Widget and Shortcode
 * Loads of slideshow configuration options - transition effect, speed etc (per slideshow)
 * Fully localized
 * WordPress Multi Site compatible
 * Compatible with translation plugins (WPML, PolyLang & qTranslate)
-* Extensive Developer API (hooks & filters)
+* Extensive developer API (hooks & filters)
 * Fast - only the minimum JavaScript/CSS is included on your page
 * Free basic support (covering installation issues and theme/plugin conflicts)
-* Lightbox support with the [MetaSlider Lightbox](https://wordpress.org/plugins/ml-slider-lightbox/) addon
+* Lightbox support with the [MetaSlider Lightbox](https://wordpress.org/plugins/ml-slider-lightbox/) add-on
 
 **General:**
+
 * Simple and intuitive interface – perfect for individual users, developers & clients!
 * Fast – requires only the minimum JavaScript/CSS on your page
 * Creatively responsive
 	
 **Creative:**
+
 * Unrestricted full-width support for image slides, including captions, links, title texts and alt. texts.
 * Includes drag and drop slide reordering, intelligent image cropping, set image crop position. 
-* Multiple slideshow configuration options (e.g. for speed, 
-* Has Admin Preview
+* Multiple slideshow configuration options (e.g. for speed, timing, plus many more!)
 
 **Other:**
-* Includes Admin preview, plus built-in Widget and Short-code
+
+* Preview from within the admin area
+* Shortcode lets you add the slideshow anyway
 * Fully localized
 * WordPress Multi-site compatible, and 
-* compatible with translation plugins (WPML, PolyLang & qTranslate)
+* Compatible with translation plugins (WPML, PolyLang & qTranslate)
 * Developer Friendly, with extensive hooks & filters
 
 **Support:**
+
 * Includes free basic support (covering installation issues and theme/plugin conflicts).
 
 The <a href="https://www.metaslider.com/upgrade">MetaSlider Pro</a> includes added support for:
@@ -72,20 +84,21 @@ The <a href="https://www.metaslider.com/upgrade">MetaSlider Pro</a> includes ad
 * HTML slides
 * Layer slides with CSS3 animations & HTML5 Video backgrounds
 * Dynamic Post Feed/Featured Image Slides (content slider)
-* Custom Themes
+* Slide scheduling & slide visibility
+* Custom Themes - build your own theme
 * Thumbnail Navigation
 * Premium Support
 
 Read more and thanks to:
 
 * [Flex Slider](http://flexslider.woothemes.com/)
-* [Responsive Slides](http://responsive-slides.viljamis.com/)
+* [Responsive Slides](http://responsiveslides.com/)
 * [Coin Slider](http://workshop.rs/projects/coin-slider/)
-* [Nivo Slider](http://dev7studios.com/nivo-slider/)
+* [Nivo Slider](https://github.com/Codeinwp/Nivo-Slider-jQuery)
 
-Find out more at https://www.metaslider.com
+Find out more at <a href="https://www.metaslider.com">metaslider.com</a>
 
-Follow us on Twitter: [@wpmetaslider](https://twitter.com/wpmetaslider)
+Follow us on Twitter: [@wpmetaslider](https://twitter.com/UpdraftPlus)
 
 == Installation ==
 
@@ -150,6 +163,88 @@ See https://www.metaslider.com/documentation/image-cropping/
 6. Administration panel - selecting slides
 
 == Changelog ==
+
+= 3.12.1 - 2019/Mar/18 =
+* FIX: Fixes a bug where Nivo and Coin Sliderdid not ship with the plugin
+
+= 3.12.0 - 2019/Mar/18 =
+
+* TWEAK: Sets a default theme on a newly created slideshow
+* TWEAK: Adds various trivial code quality fixes 
+* FEATURE: Adds access to the Unsplash.com image library
+
+= 3.11.1 - 2019/Jan/30 =
+
+* FIX: Update Gutenberg compatibility
+
+= 3.11.0 - 2019/Jan/30 =
+
+* FEATURE: Adds drag and drop module
+* FEATURE: Adds a convenient start page for new users
+* FIX: Fixes layout issue with notices served by other plugins
+* FIX: Updates Gutenberg container styles
+* FIX: Fixes issue where Coin Slider wouldn't open in a new window
+* FIX: Updates support for Elementor page builder
+* TWEAK: Updates various UI elements
+* TWEAK: Removes fonts to reduce package size
+* TWEAK: Adds an escape output of slideshow titles 
+* REFACTOR: Removes defunct preview method
+
+= 3.10.3 - 2018/Dec/04 =
+
+* FIX: Updates Gutenberg compatibility
+
+= 3.10.2 - 2018/Nov/21 =
+
+* FIX: Fixes bug in with captions in NivoSlider
+
+= 3.10.1 - 2018/Nov/20 =
+
+* TWEAK: Removes redundant height and width attributes
+* FIX: Fixes bug in PHP 5.2 where images would not import
+* FIX: Updates various translation errors and adds translator tips
+* FIX: Allows the folder name to be safely changed
+* FIX: Fixes the situation where using a different folder name breaks everything
+* FIX: Fixes a Gutenberg-related bug that appears in WP5.0 beta2
+
+= 3.10.0 - 2018/Oct/25 =
+
+* FEATURE: Adds 11 new themes users can apply to their slideshows
+* FEATURE: Adds ability to preview a slideshow with a theme
+* FEATURE: Adds ability for a theme developer to add instructions
+* FEATURE: Adds unique images by theme if a user is importing images
+* FEATURE: Adds new channel for user feedback
+* FEATURE: Adds new developer filters to adjust slide output/visibility
+* FIX: Updates unusable filter when attempting to filter slides by type
+* FIX: Fixes a bug when babel-polyfil is loaded more than once
+* FIX: Adds an extra check for an error before saving the theme
+* TWEAK: Adds a title to the theme module
+* TWEAK: Adds ability to import images with captions, title, alt and desc. from a theme.
+
+= 3.9.1 - 2018/Sept/28 =
+
+* FIX: Fixes a bug where some slides get appended inside others.
+
+= 3.9.0 - 2018/Sept/11 =
+
+* FEATURE: Adds the option to toggle autoplay for Coin Slider
+* FEATURE: Adds keyboard shortcuts to preview
+* FEATURE: Adds full width toggle to preview
+* FEATURE: Adds a light and dark preview option
+* FEATURE: Adds ability to import images if none exist
+* FEATURE: Adds Gutenberg block
+* FEATURE: Adds ability to use the title in a shortcode
+* FEATURE: Adds translation functionality to JS components
+* TWEAK: Updates Pro slide types descriptions
+* TWEAK: Adds placeholder and comparison table entries for schedule functionality
+* TWEAK: Adds compatibility with Pro feature ability to change layer slide background
+* TWEAK: Updates option name on slideshow select box as title name changes.
+* TWEAK: Adds default Flexslider fonts to repo for users that require them.
+* TWEAK: Adds filters to slides edit buttons
+* TWEAK: Tweaks edits buttons style
+* FIX: Limits image srcset to image and layer slides (fixes post feed image)
+* FIX: Fixes broken Nivo themes (due to css specificity)
+* FIX: Fixes bug where icons would jump during delete
 
 = 3.8.1 - 2018/Jun/07 =
 
@@ -662,4 +757,4 @@ More info/Comments: http://www.metaslider.com/coming-soon-meta-slider-2-6-free/
 * Initial version
 
 == Upgrade Notice ==
-* 3.8.1 : This update includes added support for retina images, responsive images, and addresses a few bugs (including in 3.8.0), including when a slideshow has a large quantity of slides.
+* 3.12.1 : Update now if your slideshow stopped working in 3.12.0
